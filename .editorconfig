@@ -3,6 +3,9 @@ root = true
 [*]
 charset = utf-8
 
+[*.yaml]
+disable_formatter = true
+
 [*.cs]
 # Indentation and spacing
 indent_size = 4
