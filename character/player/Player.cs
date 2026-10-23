@@ -3,9 +3,13 @@ using System;
 
 public partial class Player : CharacterBody3D
 {
-    public const float Speed = 5.0f;
+    [Export]
+    public float Speed = 5.0f;
+    
+    [Export]
+    public float FollowSpeed = 0.5f;
 
-    public override void _Process(double delta)
+    public override void _PhysicsProcess(double delta)
     {
         Vector3 velocity = Velocity;
 
@@ -32,5 +36,9 @@ public partial class Player : CharacterBody3D
 
         Velocity = velocity;
         MoveAndSlide();
+
+        Node3D cameraController = GetNode<Node3D>("CameraController");
+        
+        cameraController.Position = cameraController.Position.Lerp(Position, FollowSpeed);
     }
 }

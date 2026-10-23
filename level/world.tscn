@@ -1,11 +1,8 @@
 [gd_scene format=3 uid="uid://b8w5r46ksjgj2"]
 
-[ext_resource type="Script" uid="uid://cg7ruhtpleh01" path="res://scripts/Player.cs" id="1_sw3g3"]
 [ext_resource type="Texture2D" uid="uid://rak1pejo2uvk" path="res://tile/stones.png" id="1_tjjer"]
-[ext_resource type="Script" uid="uid://byuaeqmgyji0o" path="res://scripts/CameraFollow.cs" id="2_nadbi"]
-[ext_resource type="Texture2D" uid="uid://dxerkfuyl44a4" path="res://character/main_character.png" id="2_tjjer"]
-[ext_resource type="Texture2D" uid="uid://cqph1fsy0h3mi" path="res://character/Torch.png" id="4_lx6e4"]
-[ext_resource type="Texture2D" uid="uid://dtlgn0t4xfqx3" path="res://level/Stalagmite.png" id="6_hx6qw"]
+[ext_resource type="PackedScene" uid="uid://dw1022tvfc2j8" path="res://character/player/player.tscn" id="2_tjjer"]
+[ext_resource type="Texture2D" uid="uid://dtlgn0t4xfqx3" path="res://level/stalagmite.png" id="6_hx6qw"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sw3g3"]
 sky_top_color = Color(0.04236012, 0.046729296, 0.097504325, 1)
@@ -27,34 +24,13 @@ sdfgi_enabled = true
 [sub_resource type="BoxMesh" id="BoxMesh_ayj7t"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nadbi"]
+shading_mode = 0
 albedo_texture = ExtResource("1_tjjer")
 uv1_scale = Vector3(40, 40, 40)
 uv1_triplanar_sharpness = 4.0
 uv2_scale = Vector3(0.995, 0.995, 0.995)
 texture_filter = 0
 grow_amount = -12.228
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nadbi"]
-atlas = ExtResource("2_tjjer")
-region = Rect2(0, 0, 64, 128)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_ayj7t"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nadbi")
-}],
-"loop": 1,
-"name": &"idle",
-"speed": 5.0
-}]
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_euv82"]
-radius = 0.2524414
-height = 1.5222168
-
-[sub_resource type="Environment" id="Environment_lx6e4"]
-background_energy_multiplier = 0.07
 
 [node name="World" type="Node3D" unique_id=1945656188]
 
@@ -77,35 +53,8 @@ use_collision = true
 mesh = SubResource("BoxMesh_ayj7t")
 material = SubResource("StandardMaterial3D_nadbi")
 
-[node name="player" type="CharacterBody3D" parent="." unique_id=1237941923]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9019542, 0)
-script = ExtResource("1_sw3g3")
-
-[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="player" unique_id=953686956]
-billboard = 1
-texture_filter = 0
-sprite_frames = SubResource("SpriteFrames_ayj7t")
-animation = &"idle"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="player" unique_id=1151257251]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2388916, 0)
-shape = SubResource("CapsuleShape3D_euv82")
-
-[node name="Torch" type="Sprite3D" parent="player" unique_id=871734542]
-transform = Transform3D(1.6531544, 0, 0, 0, 1.6531544, 0, 0, 0, 1.6531544, 0.2636043, 0.062217474, 0.30514038)
-billboard = 1
-texture_filter = 0
-texture = ExtResource("4_lx6e4")
-
-[node name="OmniLight3D" type="OmniLight3D" parent="player/Torch" unique_id=1789544048]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.090256214)
-
-[node name="Camera3D" type="Camera3D" parent="." unique_id=808198917]
-transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, -0.07662696, 3.1064317, 1.7657108)
-environment = SubResource("Environment_lx6e4")
-current = true
-script = ExtResource("2_nadbi")
-FollowSpeed = 10.0
+[node name="player" parent="." unique_id=1455122187 instance=ExtResource("2_tjjer")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 
 [node name="Stalagmites" type="Node" parent="." unique_id=1443871626]
 
