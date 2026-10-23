@@ -45,7 +45,7 @@ jobs:
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Path "build\windows" -Force
-          & "C:\godot\Godot_v${{ env.GODOT_VERSION }}_mono_win64.exe" --headless --export-release "Windows Desktop" "build\windows\${{ env.GAME_NAME }}.exe"
+          & "C:\godot\Godot_v${{ env.GODOT_FULL_VERSION }}_mono_win64.exe" --headless --export-release "Windows Desktop" "build\windows\${{ env.GAME_NAME }}.exe"
       - name: Upload Windows Artifact
         uses: actions/upload-artifact@v4
         with:
