@@ -1,0 +1,83 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+*.translation
+
+# Devenv
+.devenv*
+devenv.local.nix
+devenv.local.yaml
+
+# direnv
+.direnv
+
+# pre-commit
+.pre-commit-config.yaml
+
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+
+# Rider/IntelliJ Idea
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+# Visual Studio
+.vs/
+
+# Fleet
+.fleet/
+
+# Code Rush
+.cr/
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+### Eclipse ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### Mac OS ###
+.DS_Store
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+msbuild.log
+msbuild.err
+msbuild.wrn
+
+publish/
