@@ -5,7 +5,7 @@ on: push
 
 env:
   GODOT_VERSION: 4.7
-  GODOT_FULL_VERSION: 4.7.1
+  GODOT_FULL_VERSION: 4.7.2-stable
   EXPORT_NAME: DwarfTossing
   PROJECT_PATH: .
 
@@ -25,10 +25,10 @@ jobs:
       - name: Download Godot .NET and Export Templates
         shell: pwsh
         run: |
-          $BaseUrl = "https://github.com/godotengine/godot/releases/download/${{ env.GODOT_VERSION }}"
+          $BaseUrl = "https://github.com/godotengine/godot/releases/download/${{ env.GODOT_FULL_VERSION }}"
           
           # Download Godot Engine
-          Invoke-WebRequest -Uri "$BaseUrl/Godot_v${{ env.GODOT_VERSION }}_mono_win64.zip" -OutFile "godot.zip"
+          Invoke-WebRequest -Uri "$BaseUrl/Godot_v${{ env.GODOT_FULL_VERSION }}_mono_win64.zip" -OutFile "godot.zip"
           Expand-Archive -Path "godot.zip" -DestinationPath "C:\godot"
           
           # Move Godot binary and GodotSharp folder to standard paths
@@ -36,8 +36,8 @@ jobs:
           Move-Item -Path "$($GodotFolder.FullName)\*" -Destination "C:\godot"
           
           # Download Export Templates
-          Invoke-WebRequest -Uri "$BaseUrl/Godot_v${{ env.GODOT_VERSION }}_mono_export_templates.tpz" -OutFile "templates.zip"
-          $TemplateDir = "$env:APPDATA\Godot\export_templates\${{ env.GODOT_VERSION }}.mono"
+          Invoke-WebRequest -Uri "$BaseUrl/Godot_v${{ env.GODOT_FULL_VERSION }}_mono_export_templates.tpz" -OutFile "templates.zip"
+          $TemplateDir = "$env:APPDATA\Godot\export_templates\${{ env.GODOT_FULL_VERSION }}.mono"
           New-Item -ItemType Directory -Path $TemplateDir -Force
           Expand-Archive -Path "templates.zip" -DestinationPath "$env:TEMP\templates"
           Move-Item -Path "$env:TEMP\templates\templates\*" -Destination $TemplateDir -Force
