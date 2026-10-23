@@ -26,8 +26,8 @@ public partial class Player : CharacterBody3D
 		}
 		else
 		{
-			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
-			velocity.Z = Mathf.MoveToward(Velocity.Z, 0, Speed);
+			velocity.X = Mathf.MoveToward(Velocity.X, 0, 0.5f);
+			velocity.Z = Mathf.MoveToward(Velocity.Z, 0, 0.5f);
 		}
 
 		Velocity = velocity;
