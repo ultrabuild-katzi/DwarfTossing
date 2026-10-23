@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://b8w5r46ksjgj2"]
 
-[ext_resource type="Script" uid="uid://cg7ruhtpleh01" path="res://character/Player.cs" id="1_sw3g3"]
+[ext_resource type="Script" path="res://scripts/Player.cs" id="1_sw3g3"]
+[ext_resource type="Texture2D" uid="uid://rak1pejo2uvk" path="res://tile/stones.png" id="1_tjjer"]
 [ext_resource type="Texture2D" uid="uid://dxerkfuyl44a4" path="res://character/main_character.png" id="2_tjjer"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sw3g3"]
@@ -21,6 +22,15 @@ sdfgi_enabled = true
 [sub_resource type="BoxMesh" id="BoxMesh_euv82"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ayj7t"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nadbi"]
+shading_mode = 0
+albedo_texture = ExtResource("1_tjjer")
+uv1_scale = Vector3(40, 40, 40)
+uv1_triplanar_sharpness = 4.0
+uv2_scale = Vector3(0.995, 0.995, 0.995)
+texture_filter = 0
+grow_amount = -12.228
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nadbi"]
 atlas = ExtResource("2_tjjer")
@@ -59,6 +69,7 @@ mesh = SubResource("BoxMesh_euv82")
 transform = Transform3D(46.511936, 0, 0, 0, -0.6422646, 0, 0, 0, 46.511936, 0, 0, 0)
 use_collision = true
 mesh = SubResource("BoxMesh_ayj7t")
+material = SubResource("StandardMaterial3D_nadbi")
 
 [node name="player" type="CharacterBody3D" parent="." unique_id=1237941923]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9019542, 0)
