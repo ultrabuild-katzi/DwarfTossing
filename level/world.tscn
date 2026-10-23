@@ -100,4 +100,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.090256214)
 transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, -0.07662696, 3.1064317, 1.7657108)
 current = true
 script = ExtResource("2_nadbi")
-FollowSpeed = 3.0
+FollowSpeed = 10.0
