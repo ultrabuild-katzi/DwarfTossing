@@ -3,25 +3,21 @@
 [ext_resource type="PackedScene" uid="uid://byjbjayqb5tsw" path="res://level/cave.gltf" id="2_sw3g3"]
 [ext_resource type="PackedScene" uid="uid://dw1022tvfc2j8" path="res://character/player/player.tscn" id="2_tjjer"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sw3g3"]
-sky_top_color = Color(0.04236012, 0.046729296, 0.097504325, 1)
-sky_horizon_color = Color(0.08592412, 0.0879218, 0.109411314, 1)
-ground_bottom_color = Color(0.027346885, 0.03096842, 0.06615148, 1)
-ground_horizon_color = Color(0.08592412, 0.0879218, 0.109411314, 1)
-energy_multiplier = 0.5
-
-[sub_resource type="Sky" id="Sky_tjjer"]
-sky_material = SubResource("ProceduralSkyMaterial_sw3g3")
-
-[sub_resource type="Environment" id="Environment_nadbi"]
-background_mode = 2
-sky = SubResource("Sky_tjjer")
-sdfgi_enabled = true
+[sub_resource type="Environment" id="Environment_8eijk"]
+ambient_light_energy = 0.0
+ssao_enabled = true
+fog_enabled = true
+fog_light_color = Color(0.07118326, 0.081665836, 0.09797717, 1)
+fog_light_energy = 0.16
+fog_density = 0.4125
+adjustment_enabled = true
+adjustment_contrast = 1.055
+adjustment_saturation = 0.59
 
 [node name="World" type="Node3D" unique_id=1945656188]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=828307134]
-environment = SubResource("Environment_nadbi")
+environment = SubResource("Environment_8eijk")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1291619400]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 18, -3)
