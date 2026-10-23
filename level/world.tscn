@@ -1,8 +1,7 @@
 [gd_scene format=3 uid="uid://b8w5r46ksjgj2"]
 
-[ext_resource type="Texture2D" uid="uid://rak1pejo2uvk" path="res://tile/stones.png" id="1_tjjer"]
+[ext_resource type="PackedScene" uid="uid://byjbjayqb5tsw" path="res://level/cave.gltf" id="2_sw3g3"]
 [ext_resource type="PackedScene" uid="uid://dw1022tvfc2j8" path="res://character/player/player.tscn" id="2_tjjer"]
-[ext_resource type="Texture2D" uid="uid://dtlgn0t4xfqx3" path="res://level/stalagmite.png" id="6_hx6qw"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sw3g3"]
 sky_top_color = Color(0.04236012, 0.046729296, 0.097504325, 1)
@@ -19,121 +18,18 @@ background_mode = 2
 sky = SubResource("Sky_tjjer")
 sdfgi_enabled = true
 
-[sub_resource type="BoxMesh" id="BoxMesh_ayj7t"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nadbi"]
-albedo_texture = ExtResource("1_tjjer")
-uv1_scale = Vector3(40, 40, 40)
-uv1_triplanar_sharpness = 4.0
-uv2_scale = Vector3(0.995, 0.995, 0.995)
-texture_filter = 0
-grow_amount = -12.228
-
 [node name="World" type="Node3D" unique_id=1945656188]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=828307134]
 environment = SubResource("Environment_nadbi")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1291619400]
-transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 6, -3)
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 18, -3)
 visible = false
 shadow_enabled = true
 
 [node name="player" parent="." unique_id=1455122187 instance=ExtResource("2_tjjer")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 4, -8)
 FollowSpeed = 0.3
 
-[node name="Stalagmites" type="Node" parent="." unique_id=1443871626]
-
-[node name="Stalagmite3" type="Sprite3D" parent="Stalagmites" unique_id=1547201224]
-transform = Transform3D(10.427994, 0, 0, 0, 10.427994, 0, 0, 0, 10.427994, 15.954522, 4.497578, 0.9541707)
-billboard = 1
-shaded = true
-texture_filter = 0
-texture = ExtResource("6_hx6qw")
-
-[node name="OmniLight3D" type="OmniLight3D" parent="Stalagmites/Stalagmite3" unique_id=1047981481]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14856948, 0.0452618)
-light_energy = 0.05
-distance_fade_enabled = true
-
-[node name="Stalagmite4" type="Sprite3D" parent="Stalagmites" unique_id=608861623]
-transform = Transform3D(10.427994, 0, 0, 0, 10.427994, 0, 0, 0, 10.427994, -10.48996, 4.497578, 5.2984123)
-billboard = 1
-shaded = true
-texture_filter = 0
-texture = ExtResource("6_hx6qw")
-
-[node name="OmniLight3D" type="OmniLight3D" parent="Stalagmites/Stalagmite4" unique_id=1276940601]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14856948, 0.0452618)
-light_energy = 0.05
-distance_fade_enabled = true
-
-[node name="Stalagmite5" type="Sprite3D" parent="Stalagmites" unique_id=1943053700]
-transform = Transform3D(10.427994, 0, 0, 0, 10.427994, 0, 0, 0, 10.427994, -0.4906664, 4.497578, -6.055475)
-billboard = 1
-shaded = true
-texture_filter = 0
-texture = ExtResource("6_hx6qw")
-
-[node name="OmniLight3D" type="OmniLight3D" parent="Stalagmites/Stalagmite5" unique_id=26586538]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14856948, 0.0452618)
-light_energy = 0.05
-distance_fade_enabled = true
-
-[node name="Stalagmite6" type="Sprite3D" parent="Stalagmites" unique_id=1424061586]
-transform = Transform3D(10.427994, 0, 0, 0, 10.427994, 0, 0, 0, 10.427994, -1.6050367, 4.497578, 18.898884)
-billboard = 1
-shaded = true
-texture_filter = 0
-texture = ExtResource("6_hx6qw")
-
-[node name="OmniLight3D" type="OmniLight3D" parent="Stalagmites/Stalagmite6" unique_id=3952902]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14856948, 0.0452618)
-light_energy = 0.05
-distance_fade_enabled = true
-
-[node name="Environment" type="Node" parent="." unique_id=1563847555]
-
-[node name="floor" type="CSGMesh3D" parent="Environment" unique_id=394008115]
-transform = Transform3D(20.440073, 0, 0, 0, -0.28224874, 0, 0, 0, 20.440073, 0.011606589, 0, -1.1192464)
-use_collision = true
-mesh = SubResource("BoxMesh_ayj7t")
-material = SubResource("StandardMaterial3D_nadbi")
-
-[node name="floor7" type="CSGMesh3D" parent="Environment" unique_id=1264397126]
-transform = Transform3D(20.440073, 0, 0, 0, -0.28224874, 0, 0, 0, 9.174371, -15.445, 0, -7.439)
-use_collision = true
-mesh = SubResource("BoxMesh_ayj7t")
-material = SubResource("StandardMaterial3D_nadbi")
-
-[node name="floor2" type="CSGMesh3D" parent="Environment" unique_id=393176539]
-transform = Transform3D(21.59147, 0, 0, 0, 1.2337485e-08, -7.419161, 0, -0.28224874, -3.243018e-07, -14.924709, 3.162311, -11.156887)
-use_collision = true
-mesh = SubResource("BoxMesh_ayj7t")
-material = SubResource("StandardMaterial3D_nadbi")
-
-[node name="floor3" type="CSGMesh3D" parent="Environment" unique_id=1858813943]
-transform = Transform3D(12.134459, 0, 0, 0, 1.2337485e-08, -7.419161, 0, -0.28224874, -3.243018e-07, 8.366903, 3.162311, -11.156887)
-use_collision = true
-mesh = SubResource("BoxMesh_ayj7t")
-material = SubResource("StandardMaterial3D_nadbi")
-
-[node name="floor4" type="CSGMesh3D" parent="Environment" unique_id=317553703]
-transform = Transform3D(-9.442022e-07, 0.28224874, 3.2430177e-07, 0, 1.2337483e-08, -7.419161, 21.600828, 1.2337483e-08, -1.2182469e-14, 10.186214, 3.162311, -0.65465546)
-use_collision = true
-mesh = SubResource("BoxMesh_ayj7t")
-material = SubResource("StandardMaterial3D_nadbi")
-
-[node name="floor5" type="CSGMesh3D" parent="Environment" unique_id=472134083]
-transform = Transform3D(-6.6597653e-07, 0.28224874, 3.2430177e-07, 0, 1.2337483e-08, -7.419161, 15.235766, 1.2337483e-08, -1.2182469e-14, -9.494668, 3.5460248, 3.5420885)
-use_collision = true
-mesh = SubResource("BoxMesh_ayj7t")
-material = SubResource("StandardMaterial3D_nadbi")
-
-[node name="floor6" type="CSGMesh3D" parent="Environment" unique_id=192602449]
-transform = Transform3D(21.60083, 0, -4.0235695e-14, -3.35448e-21, 1.2337486e-08, -5.6626706, 2.1529137e-13, -0.2822488, -2.4752322e-07, 0.09731369, 0, 6.531313)
-visible = false
-use_collision = true
-mesh = SubResource("BoxMesh_ayj7t")
-material = SubResource("StandardMaterial3D_nadbi")
+[node name="cave" parent="." unique_id=65057511 instance=ExtResource("2_sw3g3")]
