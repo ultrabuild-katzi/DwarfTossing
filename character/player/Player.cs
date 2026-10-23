@@ -1,6 +1,8 @@
 using Godot;
 using System;
 
+namespace DwarfTossing.character.player;
+
 public partial class Player : CharacterBody3D
 {
     [Export]

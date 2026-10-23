@@ -19,6 +19,7 @@ config/icon="res://brand/icon.svg"
 
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+display_server/driver.linuxbsd="wayland"
 
 [dotnet]
 

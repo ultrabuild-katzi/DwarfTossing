@@ -1,16 +1,27 @@
 <Project Sdk="Godot.NET.Sdk/4.7.2">
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net9.0</TargetFramework>
-    <EnableDynamicLoading>true</EnableDynamicLoading>
-  </PropertyGroup>
-  <ItemGroup>
-    <Content Include=".envrc" />
-    <Content Include="devenv.lock" />
-    <Content Include="devenv.nix" />
-    <Content Include="devenv.yaml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="system\" />
-  </ItemGroup>
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net9.0</TargetFramework>
+        <RootNamespace>DwarfTossing</RootNamespace>
+        
+        <EnableDynamicLoading>true</EnableDynamicLoading>
+        <InvariantGlobalization>true</InvariantGlobalization>
+        <SelfContained>true</SelfContained>
+        <PublishAOT>true</PublishAOT>
+
+        <RuntimeIdentifiers>linux-x64;win-x64</RuntimeIdentifiers>
+
+        <!-- Size optimizations -->
+        <OptimizationPreference>Size</OptimizationPreference>
+        <StripSymbols>true</StripSymbols>
+        <IlcFoldIdenticalMethodBodies>true</IlcFoldIdenticalMethodBodies>
+        <StackTraceSupport>false</StackTraceSupport>
+        <EventSourceSupport>false</EventSourceSupport>
+        <EnableUnsafeBinaryFormatterSerialization>false</EnableUnsafeBinaryFormatterSerialization>
+        <HttpActivityPropagationSupport>false</HttpActivityPropagationSupport>
+    </PropertyGroup>
+    <ItemGroup>
+        <TrimmerRootAssembly Include="GodotSharp"/>
+        <TrimmerRootAssembly Include="$(TargetName)"/>
+    </ItemGroup>
 </Project>
