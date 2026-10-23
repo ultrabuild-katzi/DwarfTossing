@@ -10,4 +10,7 @@
     <Content Include="devenv.nix" />
     <Content Include="devenv.yaml" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="system\" />
+  </ItemGroup>
 </Project>

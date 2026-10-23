@@ -32,11 +32,5 @@ public partial class Player : CharacterBody3D
 
 		Velocity = velocity;
 		MoveAndSlide();
-
-        if (Mathf.Abs(velocity.X) > 0.1)
-        {
-            sprite
-        }
-        
 	}
 }

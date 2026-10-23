@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b8w5r46ksjgj2"]
 
-[ext_resource type="Script" path="res://scripts/Player.cs" id="1_sw3g3"]
+[ext_resource type="Script" uid="uid://cg7ruhtpleh01" path="res://character/Player.cs" id="1_sw3g3"]
 [ext_resource type="Texture2D" uid="uid://rak1pejo2uvk" path="res://tile/stones.png" id="1_tjjer"]
 [ext_resource type="Texture2D" uid="uid://dxerkfuyl44a4" path="res://character/main_character.png" id="2_tjjer"]
 
