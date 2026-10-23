@@ -1,63 +1,34 @@
 [gd_scene format=3 uid="uid://dw1022tvfc2j8"]
 
 [ext_resource type="Script" uid="uid://cg7ruhtpleh01" path="res://character/player/Player.cs" id="1_gtsfv"]
-[ext_resource type="Texture2D" uid="uid://dxerkfuyl44a4" path="res://character/player/player.png" id="2_wu8e1"]
 [ext_resource type="Texture2D" uid="uid://cqph1fsy0h3mi" path="res://character/player/torch.png" id="3_wu8e1"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_nadbi"]
-atlas = ExtResource("2_wu8e1")
-region = Rect2(0, 0, 64, 128)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_ayj7t"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nadbi")
-}],
-"loop": 1,
-"name": &"idle",
-"speed": 5.0
-}]
+[sub_resource type="Environment" id="Environment_8eijk"]
+background_energy_multiplier = 0.0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_euv82"]
 radius = 0.2524414
-height = 1.5222168
-
-[sub_resource type="Environment" id="Environment_pw6nv"]
-background_energy_multiplier = 0.07
+height = 1.1693726
 
 [node name="player" type="CharacterBody3D" unique_id=1455122187]
 script = ExtResource("1_gtsfv")
 FollowSpeed = 0.2
 
-[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=375492609]
-billboard = 1
-texture_filter = 0
-sprite_frames = SubResource("SpriteFrames_ayj7t")
-animation = &"idle"
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1442233393]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4867804, 0)
+environment = SubResource("Environment_8eijk")
+current = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2059975240]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2388916, 0)
-shape = SubResource("CapsuleShape3D_euv82")
-
-[node name="Torch" type="Sprite3D" parent="." unique_id=1507263156]
-transform = Transform3D(1.6531544, 0, 0, 0, 1.6531544, 0, 0, 0, 1.6531544, 0.2636043, 0.062217474, 0.30514038)
+[node name="Torch" type="Sprite3D" parent="Camera3D" unique_id=1495348667]
+transform = Transform3D(1.6531544, 0, 0, 0, 1.6531544, 0, 0, 0, 1.6531544, 0.46701947, -0.33605397, -0.91493493)
+layers = 2
 billboard = 1
 texture_filter = 0
 texture = ExtResource("3_wu8e1")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="Torch" unique_id=708993058]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.090256214)
+[node name="OmniLight3D" type="OmniLight3D" parent="Camera3D/Torch" unique_id=2005763321]
+light_energy = 0.3
 
-[node name="CameraController" type="Node3D" parent="." unique_id=1202351298]
-physics_interpolation_mode = 1
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9019542, 0)
-top_level = true
-
-[node name="CameraTarget" type="Node3D" parent="CameraController" unique_id=1422396975]
-transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 2, 3)
-
-[node name="Camera3D" type="Camera3D" parent="CameraController/CameraTarget" unique_id=1442233393]
-transform = Transform3D(1, 0, 0, 0, 1, 5.9604645e-08, 0, -5.9604645e-08, 1, 0, 0, 0)
-environment = SubResource("Environment_pw6nv")
-current = true
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2059975240]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.062469482, 0)
+shape = SubResource("CapsuleShape3D_euv82")
