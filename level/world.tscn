@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://byuaeqmgyji0o" path="res://scripts/CameraFollow.cs" id="2_nadbi"]
 [ext_resource type="Texture2D" uid="uid://dxerkfuyl44a4" path="res://character/main_character.png" id="2_tjjer"]
 [ext_resource type="Texture2D" uid="uid://cqph1fsy0h3mi" path="res://character/Torch.png" id="4_lx6e4"]
+[ext_resource type="Texture2D" uid="uid://dtlgn0t4xfqx3" path="res://level/Stalagmite.png" id="6_hx6qw"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sw3g3"]
 sky_top_color = Color(0.04236012, 0.046729296, 0.097504325, 1)
@@ -52,6 +53,9 @@ animations = [{
 radius = 0.2524414
 height = 1.5222168
 
+[sub_resource type="Environment" id="Environment_lx6e4"]
+background_energy_multiplier = 0.07
+
 [node name="World" type="Node3D" unique_id=1945656188]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=828307134]
@@ -69,6 +73,12 @@ mesh = SubResource("BoxMesh_euv82")
 
 [node name="floor" type="CSGMesh3D" parent="." unique_id=394008115]
 transform = Transform3D(46.511936, 0, 0, 0, -0.6422646, 0, 0, 0, 46.511936, 0, 0, 0)
+use_collision = true
+mesh = SubResource("BoxMesh_ayj7t")
+material = SubResource("StandardMaterial3D_nadbi")
+
+[node name="floor2" type="CSGMesh3D" parent="." unique_id=130711435]
+transform = Transform3D(-46.51194, -5.6148544e-08, -4.0662026e-06, -4.066203e-06, 0.6422645, 0, -4.066203e-06, -4.908662e-15, 46.511936, 0, 8.321965, 0)
 use_collision = true
 mesh = SubResource("BoxMesh_ayj7t")
 material = SubResource("StandardMaterial3D_nadbi")
@@ -98,6 +108,81 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.090256214)
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=808198917]
 transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, -0.07662696, 3.1064317, 1.7657108)
+environment = SubResource("Environment_lx6e4")
 current = true
 script = ExtResource("2_nadbi")
 FollowSpeed = 10.0
+
+[node name="Stalagmites" type="Node" parent="." unique_id=1443871626]
+
+[node name="Stalagmite2" type="Sprite3D" parent="Stalagmites" unique_id=46147830]
+transform = Transform3D(10.427994, 0, 0, 0, 10.427994, 0, 0, 0, 10.427994, 12.043473, 4.497578, -16.801682)
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("6_hx6qw")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Stalagmites/Stalagmite2" unique_id=276001507]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14856948, 0.0452618)
+light_energy = 0.176
+distance_fade_enabled = true
+
+[node name="Stalagmite3" type="Sprite3D" parent="Stalagmites" unique_id=1547201224]
+transform = Transform3D(10.427994, 0, 0, 0, 10.427994, 0, 0, 0, 10.427994, 15.954522, 4.497578, 0.9541707)
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("6_hx6qw")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Stalagmites/Stalagmite3" unique_id=1047981481]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14856948, 0.0452618)
+light_energy = 0.176
+distance_fade_enabled = true
+
+[node name="Stalagmite4" type="Sprite3D" parent="Stalagmites" unique_id=608861623]
+transform = Transform3D(10.427994, 0, 0, 0, 10.427994, 0, 0, 0, 10.427994, -15.417949, 4.497578, 5.2984123)
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("6_hx6qw")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Stalagmites/Stalagmite4" unique_id=1276940601]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14856948, 0.0452618)
+light_energy = 0.176
+distance_fade_enabled = true
+
+[node name="Stalagmite5" type="Sprite3D" parent="Stalagmites" unique_id=1943053700]
+transform = Transform3D(10.427994, 0, 0, 0, 10.427994, 0, 0, 0, 10.427994, -0.4906664, 4.497578, -6.055475)
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("6_hx6qw")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Stalagmites/Stalagmite5" unique_id=26586538]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14856948, 0.0452618)
+light_energy = 0.176
+distance_fade_enabled = true
+
+[node name="Stalagmite6" type="Sprite3D" parent="Stalagmites" unique_id=1424061586]
+transform = Transform3D(10.427994, 0, 0, 0, 10.427994, 0, 0, 0, 10.427994, -1.6050367, 4.497578, 18.898884)
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("6_hx6qw")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Stalagmites/Stalagmite6" unique_id=3952902]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14856948, 0.0452618)
+light_energy = 0.176
+distance_fade_enabled = true
+
+[node name="Stalagmite" type="Sprite3D" parent="Stalagmites" unique_id=1251955800]
+transform = Transform3D(14.828001, 0, 0, 0, 14.828001, 0, 0, 0, 14.828001, -7.058812, 4.098795, -16.411612)
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("6_hx6qw")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Stalagmites/Stalagmite" unique_id=1499276423]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14856948, 0.0452618)
+light_energy = 0.176
+distance_fade_enabled = true
