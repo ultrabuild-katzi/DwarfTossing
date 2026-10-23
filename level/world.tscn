@@ -77,12 +77,6 @@ use_collision = true
 mesh = SubResource("BoxMesh_ayj7t")
 material = SubResource("StandardMaterial3D_nadbi")
 
-[node name="floor2" type="CSGMesh3D" parent="." unique_id=130711435]
-transform = Transform3D(-46.51194, -5.6148544e-08, -4.0662026e-06, -4.066203e-06, 0.6422645, 0, -4.066203e-06, -4.908662e-15, 46.511936, 0, 8.321965, 0)
-use_collision = true
-mesh = SubResource("BoxMesh_ayj7t")
-material = SubResource("StandardMaterial3D_nadbi")
-
 [node name="player" type="CharacterBody3D" parent="." unique_id=1237941923]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9019542, 0)
 script = ExtResource("1_sw3g3")
