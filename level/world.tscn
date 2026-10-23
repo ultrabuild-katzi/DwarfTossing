@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://b8w5r46ksjgj2"]
 
-[ext_resource type="Script" uid="uid://cg7ruhtpleh01" path="res://character/Player.cs" id="1_sw3g3"]
+[ext_resource type="Script" uid="uid://cg7ruhtpleh01" path="res://scripts/Player.cs" id="1_sw3g3"]
 [ext_resource type="Texture2D" uid="uid://rak1pejo2uvk" path="res://tile/stones.png" id="1_tjjer"]
+[ext_resource type="Script" uid="uid://byuaeqmgyji0o" path="res://scripts/CameraFollow.cs" id="2_nadbi"]
 [ext_resource type="Texture2D" uid="uid://dxerkfuyl44a4" path="res://character/main_character.png" id="2_tjjer"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sw3g3"]
@@ -86,5 +87,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2388916, 0)
 shape = SubResource("CapsuleShape3D_euv82")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=808198917]
-transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, -0.07662696, 2.0236166, 1.6961665)
+transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, -0.07662696, 3.1064317, 1.7657108)
 current = true
+script = ExtResource("2_nadbi")
+FollowSpeed = 20.0
