@@ -11,7 +11,7 @@ env:
 jobs:
   export-windows:
     name: Windows Export
-    runs-on: ubuntu-24.04  # Use 24.04 with godot 4
+    runs-on: blacksmith-4vcpu-windows-2025  # Use 24.04 with godot 4
     container:
       image: barichello/godot-ci:mono-4.7
     steps:
@@ -39,12 +39,12 @@ jobs:
 
   export-linux:
     name: Linux Export
-    runs-on: ubuntu-24.04  # Use 24.04 with godot 4
+    runs-on: blacksmith-4vcpu-ubuntu-2404  # Use 24.04 with godot 4
     container:
       image: barichello/godot-ci:mono-4.7
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: useblacksmith/checkout@v1
         with:
           lfs: true
       - name: Setup
