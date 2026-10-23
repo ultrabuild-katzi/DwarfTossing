@@ -24,10 +24,15 @@ transform = Transform3D(1.6531544, 0, 0, 0, 1.6531544, 0, 0, 0, 1.6531544, 0.467
 layers = 2
 billboard = 1
 texture_filter = 0
+render_priority = 1
 texture = ExtResource("3_wu8e1")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Camera3D/Torch" unique_id=2005763321]
-light_energy = 0.3
+light_energy = 0.2
+light_indirect_energy = 0.4
+light_specular = 0.0
+shadow_enabled = true
+omni_range = 3.4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2059975240]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.062469482, 0)
