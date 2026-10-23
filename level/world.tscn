@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://rak1pejo2uvk" path="res://tile/stones.png" id="1_tjjer"]
 [ext_resource type="Script" uid="uid://byuaeqmgyji0o" path="res://scripts/CameraFollow.cs" id="2_nadbi"]
 [ext_resource type="Texture2D" uid="uid://dxerkfuyl44a4" path="res://character/main_character.png" id="2_tjjer"]
+[ext_resource type="Texture2D" uid="uid://cqph1fsy0h3mi" path="res://character/Torch.png" id="4_lx6e4"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sw3g3"]
 sky_top_color = Color(0.04236012, 0.046729296, 0.097504325, 1)
@@ -25,7 +26,6 @@ sdfgi_enabled = true
 [sub_resource type="BoxMesh" id="BoxMesh_ayj7t"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nadbi"]
-shading_mode = 0
 albedo_texture = ExtResource("1_tjjer")
 uv1_scale = Vector3(40, 40, 40)
 uv1_triplanar_sharpness = 4.0
@@ -59,6 +59,7 @@ environment = SubResource("Environment_nadbi")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1291619400]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 6, -3)
+visible = false
 shadow_enabled = true
 
 [node name="CSGMesh3D" type="CSGMesh3D" parent="." unique_id=1185300602]
@@ -86,8 +87,17 @@ animation = &"idle"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2388916, 0)
 shape = SubResource("CapsuleShape3D_euv82")
 
+[node name="Torch" type="Sprite3D" parent="player" unique_id=871734542]
+transform = Transform3D(1.6531544, 0, 0, 0, 1.6531544, 0, 0, 0, 1.6531544, 0.2636043, 0.062217474, 0.30514038)
+billboard = 1
+texture_filter = 0
+texture = ExtResource("4_lx6e4")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="player/Torch" unique_id=1789544048]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.090256214)
+
 [node name="Camera3D" type="Camera3D" parent="." unique_id=808198917]
 transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, -0.07662696, 3.1064317, 1.7657108)
 current = true
 script = ExtResource("2_nadbi")
-FollowSpeed = 20.0
+FollowSpeed = 10.0
