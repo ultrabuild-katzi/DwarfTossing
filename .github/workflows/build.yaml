@@ -5,8 +5,8 @@ on: push
 
 env:
   GODOT_VERSION: 4.7
-  EXPORT_NAME: test-project
-  PROJECT_PATH: test-project
+  EXPORT_NAME: DwarfTossing
+  PROJECT_PATH: .
 
 jobs:
   export-windows:
