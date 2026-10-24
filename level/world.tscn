@@ -15,25 +15,19 @@ adjustment_enabled = true
 adjustment_contrast = 1.055
 adjustment_saturation = 0.59
 
-[sub_resource type="Shader" id="Shader_tjjer"]
-code = "
-shader_type spatial;
-
-uniform sampler2D texture : hint_albedo;
-
-void vertex() { 
-	// Billboard effect
-	VERTEX = (vec4(VERTEX,1.0)*MODELVIEW_MATRIX).xyz;
-}
-
-void fragment() {
-	// Sampling texture inside shader
-	ALBEDO = texture(texture, UV).rgb;
-}"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_nadbi"]
-render_priority = 0
-shader = SubResource("Shader_tjjer")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hx6qw"]
+transparency = 1
+disable_fog = true
+albedo_texture = ExtResource("3_tjjer")
+emission_enabled = true
+emission = Color(1.1615115, 0.071215115, 0.3602079, 1)
+emission_energy_multiplier = 0.05
+backlight = Color(1, 1, 1, 1)
+texture_filter = 0
+texture_repeat = false
+billboard_mode = 1
+billboard_keep_scale = true
+grow_amount = 0.1
 
 [node name="World" type="Node3D" unique_id=1945656188]
 
@@ -51,7 +45,7 @@ FollowSpeed = 0.3
 [node name="eyes" type="Sprite3D" parent="Eyes" unique_id=1591119359]
 transform = Transform3D(2.5326626, 0, 0, 0, 2.5326626, 0, 0, 0, 2.5326626, -13.24338, 4.770056, -9.965792)
 layers = 2
-material_overlay = SubResource("ShaderMaterial_nadbi")
+material_override = SubResource("StandardMaterial3D_hx6qw")
 cast_shadow = 0
 ignore_occlusion_culling = true
 gi_lightmap_texel_scale = 10.0
@@ -59,5 +53,6 @@ visibility_range_begin_margin = 1.0
 visibility_range_fade_mode = 1
 modulate = Color(18.892157, 18.892157, 18.892157, 1)
 billboard = 1
+shaded = true
 texture_filter = 0
 texture = ExtResource("3_tjjer")
