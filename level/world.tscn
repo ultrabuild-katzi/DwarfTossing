@@ -54,7 +54,7 @@ AudioStreams = Array[AudioStream]([ExtResource("3_hx6qw"), ExtResource("4_gsqr6"
 
 [node name="cave" parent="." unique_id=65057511 instance=ExtResource("2_sw3g3")]
 
-[node name="cave_decorations" parent="." unique_id=832557629 instance=ExtResource("9_xd8br")]
+[node name="cave_decorations" parent="." unique_id=1762948636 instance=ExtResource("9_xd8br")]
 
 [node name="Eyes" type="Node" parent="." unique_id=1170698013]
 
