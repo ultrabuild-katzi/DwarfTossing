@@ -36,7 +36,14 @@ public partial class Player : CharacterBody3D
 		}
 
 		Vector2 inputDir = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-		Vector3 direction = (_camera.GlobalTransform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
+        Vector3 camForward = _camera.GlobalTransform.Basis.Z;
+        camForward.Y = 0;
+        camForward = camForward.Normalized();
+        Vector3 camRight = _camera.GlobalTransform.Basis.X;
+        camRight.Y = 0;
+        camRight = camRight.Normalized();
+
+		Vector3 direction = (camRight * inputDir.X + camForward * inputDir.Y).Normalized();
 
 		if (direction != Vector3.Zero)
 		{
