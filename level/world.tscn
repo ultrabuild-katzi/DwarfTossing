@@ -103,6 +103,24 @@ shaded = true
 texture_filter = 0
 texture = ExtResource("3_tjjer")
 
+[node name="eyes13" type="Sprite3D" parent="Eyes" unique_id=1425077255]
+transform = Transform3D(2.5326626, 0, 0, 0, 2.5326626, 0, 0, 0, 2.5326626, -37.17503, 4.117792, 37.114086)
+layers = 2
+material_override = SubResource("StandardMaterial3D_hx6qw")
+cast_shadow = 0
+ignore_occlusion_culling = true
+gi_lightmap_texel_scale = 3.545
+visibility_range_begin = 9.0
+visibility_range_begin_margin = 1.0
+visibility_range_end = 13.0
+visibility_range_end_margin = 1.0
+visibility_range_fade_mode = 1
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("3_tjjer")
+
 [node name="eyes11" type="Sprite3D" parent="Eyes" unique_id=2009136973]
 transform = Transform3D(2.5326626, 0, 0, 0, 2.5326626, 0, 0, 0, 2.5326626, -13.28946, 4.45817, 43.71154)
 layers = 2
