@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://byjbjayqb5tsw" path="res://level/cave.gltf" id="2_sw3g3"]
 [ext_resource type="PackedScene" uid="uid://dw1022tvfc2j8" path="res://character/player/player.tscn" id="2_tjjer"]
+[ext_resource type="Texture2D" uid="uid://ecjus6wia7ua" path="res://character/dwarf/dwarfeyes.png" id="3_tjjer"]
 
 [sub_resource type="Environment" id="Environment_8eijk"]
 ambient_light_energy = 0.0
@@ -14,18 +15,49 @@ adjustment_enabled = true
 adjustment_contrast = 1.055
 adjustment_saturation = 0.59
 
+[sub_resource type="Shader" id="Shader_tjjer"]
+code = "
+shader_type spatial;
+
+uniform sampler2D texture : hint_albedo;
+
+void vertex() { 
+	// Billboard effect
+	VERTEX = (vec4(VERTEX,1.0)*MODELVIEW_MATRIX).xyz;
+}
+
+void fragment() {
+	// Sampling texture inside shader
+	ALBEDO = texture(texture, UV).rgb;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nadbi"]
+render_priority = 0
+shader = SubResource("Shader_tjjer")
+
 [node name="World" type="Node3D" unique_id=1945656188]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=828307134]
 environment = SubResource("Environment_8eijk")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1291619400]
-transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 18, -3)
-visible = false
-shadow_enabled = true
 
 [node name="player" parent="." unique_id=1455122187 instance=ExtResource("2_tjjer")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 4, -8)
 FollowSpeed = 0.3
 
 [node name="cave" parent="." unique_id=65057511 instance=ExtResource("2_sw3g3")]
+
+[node name="Eyes" type="Node" parent="." unique_id=1170698013]
+
+[node name="eyes" type="Sprite3D" parent="Eyes" unique_id=1591119359]
+transform = Transform3D(2.5326626, 0, 0, 0, 2.5326626, 0, 0, 0, 2.5326626, -13.24338, 4.770056, -9.965792)
+layers = 2
+material_overlay = SubResource("ShaderMaterial_nadbi")
+cast_shadow = 0
+ignore_occlusion_culling = true
+gi_lightmap_texel_scale = 10.0
+visibility_range_begin_margin = 1.0
+visibility_range_fade_mode = 1
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+billboard = 1
+texture_filter = 0
+texture = ExtResource("3_tjjer")

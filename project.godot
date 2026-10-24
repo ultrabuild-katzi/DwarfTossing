@@ -25,8 +25,6 @@ display_server/driver.linuxbsd="wayland"
 
 project/assembly_name="DwarfTossing"
 
-[editor]
-
 [input]
 
 ui_left={
