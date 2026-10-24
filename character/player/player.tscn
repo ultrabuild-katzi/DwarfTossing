@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dw1022tvfc2j8"]
 
 [ext_resource type="Script" uid="uid://cg7ruhtpleh01" path="res://character/player/Player.cs" id="1_gtsfv"]
+[ext_resource type="AudioStream" uid="uid://dtrmeyccueivc" path="res://sfx/firecrackling.mp3" id="3_eu8pa"]
 [ext_resource type="Shader" uid="uid://cb0sy514ig1x2" path="res://character/player/film_grain.gdshader" id="3_g20gq"]
 [ext_resource type="Texture2D" uid="uid://cqph1fsy0h3mi" path="res://character/player/torch.png" id="3_wu8e1"]
 [ext_resource type="Script" uid="uid://cyvnmin3h5nxj" path="res://character/player/SanityController.cs" id="4_wu8e1"]
@@ -42,6 +43,13 @@ light_specular = 0.0
 shadow_enabled = true
 omni_range = 3.0
 
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Camera3D/Torch" unique_id=1116661206]
+stream = ExtResource("3_eu8pa")
+volume_db = -26.916
+pitch_scale = 1.33
+autoplay = true
+parameters/looping = true
+
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1050109276]
 
 [node name="VignetteRect" type="ColorRect" parent="CanvasLayer" unique_id=2103118899]
@@ -63,7 +71,6 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0)
 script = ExtResource("4_wu8e1")
-SanityDecrease = 2.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2059975240]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.062469482, 0)

@@ -14,6 +14,9 @@ public partial class Player : CharacterBody3D
 	[Export]
 	private Camera3D _camera;
 
+	[Export]
+	private AudioStreamPlayer3D _footstepsStream;
+
 	private float _cameraBobbing = 10;
 	private double _elapsedTime;
 
@@ -52,11 +55,16 @@ public partial class Player : CharacterBody3D
 		{
 			_elapsedTime += delta;
 			_camera.VOffset = (float)Math.Sin(_elapsedTime * 10) / 20;
+
+			if (!_footstepsStream.Playing)
+				_footstepsStream.Play();
 		}
 		else
 		{
 			_elapsedTime = 0;
 			_camera.VOffset = 0;
+
+			_footstepsStream.Stop();
 		}
 
 		MoveAndSlide();
