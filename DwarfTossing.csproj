@@ -24,4 +24,8 @@
         <TrimmerRootAssembly Include="GodotSharp"/>
         <TrimmerRootAssembly Include="$(TargetName)"/>
     </ItemGroup>
+    <ItemGroup>
+      <Content Include="sfx\firecrackling.mp3" />
+      <Content Include="sfx\footsteps_on_stone.mp3" />
+    </ItemGroup>
 </Project>
