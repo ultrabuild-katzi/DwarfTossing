@@ -1,15 +1,15 @@
 [gd_scene format=3 uid="uid://dw1022tvfc2j8"]
 
 [ext_resource type="Script" uid="uid://cg7ruhtpleh01" path="res://character/player/Player.cs" id="1_gtsfv"]
-[ext_resource type="Shader" uid="uid://nuyoq0il3cl8" path="res://character/player/vignette.gdshader" id="3_gtsfv"]
+[ext_resource type="Shader" uid="uid://cb0sy514ig1x2" path="res://character/player/film_grain.gdshader" id="3_g20gq"]
 [ext_resource type="Texture2D" uid="uid://cqph1fsy0h3mi" path="res://character/player/torch.png" id="3_wu8e1"]
 [ext_resource type="Script" uid="uid://cyvnmin3h5nxj" path="res://character/player/SanityController.cs" id="4_wu8e1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ayj7t"]
-shader = ExtResource("3_gtsfv")
-shader_parameter/alpha = 1.0
-shader_parameter/inner_radius = 0.6
-shader_parameter/outer_radius = 1.2
+shader = ExtResource("3_g20gq")
+shader_parameter/grain_amount = 0.4350000206625
+shader_parameter/grain_size = 0.10000000149012
+shader_parameter/random_modifier = 0.0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_euv82"]
 radius = 0.2524414
@@ -44,7 +44,7 @@ omni_range = 3.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1050109276]
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=2103118899]
+[node name="VignetteRect" type="ColorRect" parent="CanvasLayer" unique_id=2103118899]
 material = SubResource("ShaderMaterial_ayj7t")
 anchors_preset = 15
 anchor_right = 1.0
@@ -53,17 +53,17 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0)
 
-[node name="ColorRect2" type="ColorRect" parent="CanvasLayer" unique_id=1391012184]
-anchors_preset = 10
+[node name="FilmGrainRect" type="ColorRect" parent="CanvasLayer" unique_id=538714674]
+visible = false
+material = SubResource("ShaderMaterial_ayj7t")
+anchors_preset = 15
 anchor_right = 1.0
-offset_left = 211.0
-offset_top = 585.0
-offset_right = -7.0
-offset_bottom = 616.0
+anchor_bottom = 1.0
 grow_horizontal = 2
-scale = Vector2(0.8, 1)
-color = Color(0.34341902, 0.3346154, 0.050698515, 1)
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
 script = ExtResource("4_wu8e1")
+SanityDecrease = 2.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2059975240]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.062469482, 0)

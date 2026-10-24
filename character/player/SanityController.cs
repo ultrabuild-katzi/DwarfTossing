@@ -4,22 +4,21 @@ using System;
 public partial class SanityController : ColorRect
 {
 	[Export]
-	public float SanityDecrease = 10;
+	public float Sanity;
 
-	private Vector2 _startPosition;
-	private Vector2 _startSize;
+    private double _time;
 
-	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		_startPosition = Position;
-		_startSize = Size;
+        Console.WriteLine("SanityController::_Ready");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		Size = new(Size.X - (SanityDecrease * 2) * (float)delta, Size.Y);
-		Position = new(Position.X + SanityDecrease * (float)delta, Position.Y);
-	}
+        
+        ShaderMaterial material = GetMaterial() as ShaderMaterial;
+        material!.SetShaderParameter("random_modifier", (_time += delta) % 1.0);
+        material!.SetShaderParameter("grain_amount", Sanity);
+    }
 }
