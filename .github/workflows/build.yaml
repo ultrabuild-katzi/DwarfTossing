@@ -53,6 +53,11 @@ jobs:
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Path "build\windows" -Force
+          
+          # Prevent .NET from spawning lingering background compiler daemons
+          $env:UseSharedCompilation = "false"
+          $env:DOTNET_CLI_DO_NOT_USE_MSBUILD_SERVER = "1"
+          
           & "C:\godot\Godot_v${{ env.GODOT_FULL_VERSION }}_mono_win64_console.exe" --headless --export-release "Windows Desktop" "build\windows\${{ env.GAME_NAME }}.exe"
 
       - name: Upload Windows Artifact
