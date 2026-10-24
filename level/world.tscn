@@ -20,8 +20,8 @@ transparency = 1
 disable_fog = true
 albedo_texture = ExtResource("3_tjjer")
 emission_enabled = true
-emission = Color(1.1615115, 0.071215115, 0.3602079, 1)
-emission_energy_multiplier = 0.05
+emission = Color(0.45262197, 0.009803036, 0.118641526, 1)
+emission_energy_multiplier = 0.1
 backlight = Color(1, 1, 1, 1)
 texture_filter = 0
 texture_repeat = false
@@ -43,13 +43,214 @@ FollowSpeed = 0.3
 [node name="Eyes" type="Node" parent="." unique_id=1170698013]
 
 [node name="eyes" type="Sprite3D" parent="Eyes" unique_id=1591119359]
-transform = Transform3D(2.5326626, 0, 0, 0, 2.5326626, 0, 0, 0, 2.5326626, -13.24338, 4.770056, -9.965792)
+transform = Transform3D(2.5326626, 0, 0, 0, 2.5326626, 0, 0, 0, 2.5326626, -13.036033, 4.770056, -11.168626)
 layers = 2
 material_override = SubResource("StandardMaterial3D_hx6qw")
 cast_shadow = 0
 ignore_occlusion_culling = true
 gi_lightmap_texel_scale = 10.0
+visibility_range_begin = 8.0
 visibility_range_begin_margin = 1.0
+visibility_range_end = 13.0
+visibility_range_end_margin = 1.0
+visibility_range_fade_mode = 1
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("3_tjjer")
+
+[node name="eyes9" type="Sprite3D" parent="Eyes" unique_id=1572922883]
+transform = Transform3D(2.5326626, 0, 0, 0, 2.5326626, 0, 0, 0, 2.5326626, -14.81009, 4.770056, 8.276639)
+layers = 2
+material_override = SubResource("StandardMaterial3D_hx6qw")
+cast_shadow = 0
+ignore_occlusion_culling = true
+gi_lightmap_texel_scale = 10.0
+visibility_range_begin = 8.0
+visibility_range_begin_margin = 1.0
+visibility_range_end = 13.0
+visibility_range_end_margin = 1.0
+visibility_range_fade_mode = 1
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("3_tjjer")
+
+[node name="eyes11" type="Sprite3D" parent="Eyes" unique_id=2009136973]
+transform = Transform3D(2.5326626, 0, 0, 0, 2.5326626, 0, 0, 0, 2.5326626, -13.28946, 4.45817, 43.71154)
+layers = 2
+material_override = SubResource("StandardMaterial3D_hx6qw")
+cast_shadow = 0
+ignore_occlusion_culling = true
+gi_lightmap_texel_scale = 10.0
+visibility_range_begin = 8.0
+visibility_range_begin_margin = 1.0
+visibility_range_end = 13.0
+visibility_range_end_margin = 1.0
+visibility_range_fade_mode = 1
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("3_tjjer")
+
+[node name="eyes12" type="Sprite3D" parent="Eyes" unique_id=768355289]
+transform = Transform3D(2.5326626, 0, 0, 0, 2.5326626, 0, 0, 0, 2.5326626, -36.532547, 4.45817, 76.684044)
+layers = 2
+material_override = SubResource("StandardMaterial3D_hx6qw")
+cast_shadow = 0
+ignore_occlusion_culling = true
+gi_lightmap_texel_scale = 10.0
+visibility_range_begin = 8.0
+visibility_range_begin_margin = 1.0
+visibility_range_end = 13.0
+visibility_range_end_margin = 1.0
+visibility_range_fade_mode = 1
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("3_tjjer")
+
+[node name="eyes2" type="Sprite3D" parent="Eyes" unique_id=1405451145]
+transform = Transform3D(2.5326626, 0, 0, 0, 2.5326626, 0, 0, 0, 2.5326626, -4.997754, 4.032972, -15.686559)
+layers = 2
+material_override = SubResource("StandardMaterial3D_hx6qw")
+cast_shadow = 0
+ignore_occlusion_culling = true
+gi_lightmap_texel_scale = 10.0
+visibility_range_begin = 8.0
+visibility_range_begin_margin = 1.0
+visibility_range_end = 13.0
+visibility_range_end_margin = 1.0
+visibility_range_fade_mode = 1
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("3_tjjer")
+
+[node name="eyes3" type="Sprite3D" parent="Eyes" unique_id=989229223]
+transform = Transform3D(2.5326626, 0, 0, 0, 2.5326626, 0, 0, 0, 2.5326626, 18.724064, 4.032972, -11.325221)
+layers = 2
+material_override = SubResource("StandardMaterial3D_hx6qw")
+cast_shadow = 0
+ignore_occlusion_culling = true
+gi_lightmap_texel_scale = 10.0
+visibility_range_begin = 8.0
+visibility_range_begin_margin = 1.0
+visibility_range_end = 13.0
+visibility_range_end_margin = 1.0
+visibility_range_fade_mode = 1
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("3_tjjer")
+
+[node name="eyes4" type="Sprite3D" parent="Eyes" unique_id=12230447]
+transform = Transform3D(2.5326626, 0, 0, 0, 2.5326626, 0, 0, 0, 2.5326626, 39.283913, 3.2899814, -11.646698)
+layers = 2
+material_override = SubResource("StandardMaterial3D_hx6qw")
+cast_shadow = 0
+ignore_occlusion_culling = true
+gi_lightmap_texel_scale = 10.0
+visibility_range_begin = 8.0
+visibility_range_begin_margin = 1.0
+visibility_range_end = 13.0
+visibility_range_end_margin = 1.0
+visibility_range_fade_mode = 1
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("3_tjjer")
+
+[node name="eyes8" type="Sprite3D" parent="Eyes" unique_id=481299504]
+transform = Transform3D(2.5326626, 0, 0, 0, 2.5326626, 0, 0, 0, 2.5326626, 45.838497, 5.2501807, 6.2660675)
+layers = 2
+material_override = SubResource("StandardMaterial3D_hx6qw")
+cast_shadow = 0
+ignore_occlusion_culling = true
+gi_lightmap_texel_scale = 10.0
+visibility_range_begin = 8.0
+visibility_range_begin_margin = 1.0
+visibility_range_end = 13.0
+visibility_range_end_margin = 1.0
+visibility_range_fade_mode = 1
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("3_tjjer")
+
+[node name="eyes5" type="Sprite3D" parent="Eyes" unique_id=2002769980]
+transform = Transform3D(2.5326626, 0, 0, 0, 2.5326626, 0, 0, 0, 2.5326626, 39.875584, 4.0721354, -34.543716)
+layers = 2
+material_override = SubResource("StandardMaterial3D_hx6qw")
+cast_shadow = 0
+ignore_occlusion_culling = true
+gi_lightmap_texel_scale = 10.0
+visibility_range_begin = 8.0
+visibility_range_begin_margin = 1.0
+visibility_range_end = 13.0
+visibility_range_end_margin = 1.0
+visibility_range_fade_mode = 1
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("3_tjjer")
+
+[node name="eyes6" type="Sprite3D" parent="Eyes" unique_id=2047265716]
+transform = Transform3D(2.5326626, 0, 0, 0, 2.5326626, 0, 0, 0, 2.5326626, 18.680866, 4.1883955, -34.413895)
+layers = 2
+material_override = SubResource("StandardMaterial3D_hx6qw")
+cast_shadow = 0
+ignore_occlusion_culling = true
+gi_lightmap_texel_scale = 10.0
+visibility_range_begin = 8.0
+visibility_range_begin_margin = 1.0
+visibility_range_end = 13.0
+visibility_range_end_margin = 1.0
+visibility_range_fade_mode = 1
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("3_tjjer")
+
+[node name="eyes10" type="Sprite3D" parent="Eyes" unique_id=718465583]
+transform = Transform3D(2.5326626, 0, 0, 0, 2.5326626, 0, 0, 0, 2.5326626, -0.77472425, 4.1883955, -67.52271)
+layers = 2
+material_override = SubResource("StandardMaterial3D_hx6qw")
+cast_shadow = 0
+ignore_occlusion_culling = true
+gi_lightmap_texel_scale = 10.0
+visibility_range_begin = 8.0
+visibility_range_begin_margin = 1.0
+visibility_range_end = 13.0
+visibility_range_end_margin = 1.0
+visibility_range_fade_mode = 1
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("3_tjjer")
+
+[node name="eyes7" type="Sprite3D" parent="Eyes" unique_id=1892827448]
+transform = Transform3D(2.5326626, 0, 0, 0, 2.5326626, 0, 0, 0, 2.5326626, 24.863142, 4.2933726, -63.750134)
+layers = 2
+material_override = SubResource("StandardMaterial3D_hx6qw")
+cast_shadow = 0
+ignore_occlusion_culling = true
+gi_lightmap_texel_scale = 10.0
+visibility_range_begin = 8.0
+visibility_range_begin_margin = 1.0
+visibility_range_end = 13.0
+visibility_range_end_margin = 1.0
 visibility_range_fade_mode = 1
 modulate = Color(18.892157, 18.892157, 18.892157, 1)
 billboard = 1
