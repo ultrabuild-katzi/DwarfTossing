@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://hcakmcpwwpml"
-path.s3tc="res://.godot/imported/red_mushroom.png-9ed87b65297c410c0830424f2156c142.s3tc.ctex"
+uid="uid://otj7vacx1wud"
+path.s3tc="res://.godot/imported/water1.png-bdf4ff077a7599c78db6bb2427a6d7bd.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://level/cave_tex/red_mushroom.png"
-dest_files=["res://.godot/imported/red_mushroom.png-9ed87b65297c410c0830424f2156c142.s3tc.ctex"]
+source_file="res://level/cave_tex/water1.png"
+dest_files=["res://.godot/imported/water1.png-bdf4ff077a7599c78db6bb2427a6d7bd.s3tc.ctex"]
 
 [params]
 

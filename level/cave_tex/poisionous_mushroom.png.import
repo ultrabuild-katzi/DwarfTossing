@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bhw1y42kadlbt"
-path.s3tc="res://.godot/imported/brown_mushroom.png-b822924da4cdb9d7f1e8a03ef7e6b2b2.s3tc.ctex"
+uid="uid://c6ym4348850n"
+path.s3tc="res://.godot/imported/poisionous_mushroom.png-538e607da0a8ff95b8294c2efc4d8ef3.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://level/cave_tex/brown_mushroom.png"
-dest_files=["res://.godot/imported/brown_mushroom.png-b822924da4cdb9d7f1e8a03ef7e6b2b2.s3tc.ctex"]
+source_file="res://level/cave_tex/poisionous_mushroom.png"
+dest_files=["res://.godot/imported/poisionous_mushroom.png-538e607da0a8ff95b8294c2efc4d8ef3.s3tc.ctex"]
 
 [params]
 

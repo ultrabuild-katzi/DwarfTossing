@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://byjbjayqb5tsw"
-path="res://.godot/imported/cave.gltf-3fb9890159a50b9fe0c30819a5c22a72.scn"
+uid="uid://csw1drips468t"
+path="res://.godot/imported/static_cave.gltf-1bcd2dabe58e41ee81d734e441486d6f.scn"
 
 [deps]
 
-source_file="res://level/cave.gltf"
-dest_files=["res://.godot/imported/cave.gltf-3fb9890159a50b9fe0c30819a5c22a72.scn"]
+source_file="res://level/static_cave.gltf"
+dest_files=["res://.godot/imported/static_cave.gltf-1bcd2dabe58e41ee81d734e441486d6f.scn"]
 
 [params]
 

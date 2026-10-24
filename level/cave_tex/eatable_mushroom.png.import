@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://beu1w014sp06q"
-path.s3tc="res://.godot/imported/blue_concrete.png-9345ca38e04e765af9e380f7ebc19d64.s3tc.ctex"
+uid="uid://ckk6k8hicu6jx"
+path.s3tc="res://.godot/imported/eatable_mushroom.png-0b3d0548d977e369aa896853787a65ad.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://level/cave_tex/blue_concrete.png"
-dest_files=["res://.godot/imported/blue_concrete.png-9345ca38e04e765af9e380f7ebc19d64.s3tc.ctex"]
+source_file="res://level/cave_tex/eatable_mushroom.png"
+dest_files=["res://.godot/imported/eatable_mushroom.png-0b3d0548d977e369aa896853787a65ad.s3tc.ctex"]
 
 [params]
 
