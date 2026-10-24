@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 namespace DwarfTossing.Character.Player;
 
@@ -16,6 +17,8 @@ public partial class Player : CharacterBody3D
 
 	[Export]
 	private AudioStreamPlayer3D _footstepsStream;
+
+    [Export] private Label _targetingLabel;
 
 	private float _cameraBobbing = 10;
 	private double _elapsedTime;
@@ -75,8 +78,45 @@ public partial class Player : CharacterBody3D
 		}
 
 		MoveAndSlide();
-	}
 
+        Vector2 screenCenter = GetViewport().GetVisibleRect().Size / 2;
+        Vector3 rayOrigin = _camera.ProjectRayOrigin(screenCenter);
+        Vector3 rayEnd = rayOrigin + _camera.ProjectRayNormal(screenCenter) * 5;
+
+        PhysicsDirectSpaceState3D spaceState = GetWorld3D().DirectSpaceState;
+
+        var query = PhysicsRayQueryParameters3D.Create(rayOrigin, rayEnd);
+        query.Exclude = [GetRid()];
+
+        Godot.Collections.Dictionary hitResult = spaceState.IntersectRay(query);
+        
+
+        if (hitResult.Count <= 0)
+        {
+            _targetingLabel.Text = $"Hit object: None";
+            return;
+        }   
+            
+        Node3D collider = (Node3D)hitResult["collider"];
+        string name = collider.Name.ToString();
+        if (name.StartsWith("water"))
+        {
+            
+        }
+        
+        
+        _targetingLabel.Text = $"Hit object: {collider.Name}";
+
+        
+        if (Input.IsActionJustReleased("pickup_item"))
+        {
+            
+        }
+        
+
+    }
+
+    
 	public override void _Input(InputEvent motionUnknown)
 	{
 		if (motionUnknown is InputEventMouseMotion mouseMotion)
