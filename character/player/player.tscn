@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cg7ruhtpleh01" path="res://character/player/Player.cs" id="1_gtsfv"]
 [ext_resource type="Shader" uid="uid://nuyoq0il3cl8" path="res://character/player/vignette.gdshader" id="3_gtsfv"]
 [ext_resource type="Texture2D" uid="uid://cqph1fsy0h3mi" path="res://character/player/torch.png" id="3_wu8e1"]
+[ext_resource type="Script" uid="uid://cyvnmin3h5nxj" path="res://character/player/SanityController.cs" id="4_wu8e1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ayj7t"]
 shader = ExtResource("3_gtsfv")
@@ -15,6 +16,7 @@ radius = 0.2524414
 height = 1.1693726
 
 [node name="player" type="CharacterBody3D" unique_id=1455122187 node_paths=PackedStringArray("_camera")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
 script = ExtResource("1_gtsfv")
 FollowSpeed = 0.2
 _camera = NodePath("Camera3D")
@@ -33,11 +35,12 @@ texture = ExtResource("3_wu8e1")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Camera3D/Torch" unique_id=2005763321]
 light_color = Color(0.80784315, 0.8352941, 0.58431375, 1)
-light_energy = 0.4
+light_energy = 0.27
 light_indirect_energy = 0.4
+light_volumetric_fog_energy = 0.5
 light_specular = 0.0
 shadow_enabled = true
-omni_range = 3.4
+omni_range = 3.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1050109276]
 
@@ -49,6 +52,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0)
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer" unique_id=1391012184]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 211.0
+offset_top = 585.0
+offset_right = -7.0
+offset_bottom = 616.0
+grow_horizontal = 2
+scale = Vector2(0.8, 1)
+color = Color(0.34341902, 0.3346154, 0.050698515, 1)
+script = ExtResource("4_wu8e1")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2059975240]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.062469482, 0)
