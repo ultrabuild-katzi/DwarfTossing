@@ -31,7 +31,8 @@ render_priority = 1
 texture = ExtResource("3_wu8e1")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Camera3D/Torch" unique_id=2005763321]
-light_energy = 0.2
+light_color = Color(0.80784315, 0.8352941, 0.58431375, 1)
+light_energy = 0.4
 light_indirect_energy = 0.4
 light_specular = 0.0
 shadow_enabled = true
