@@ -11,7 +11,6 @@ public partial class Player : CharacterBody3D
 	[Export] private AudioStreamPlayer3D _footstepsStream;
 	[Export] private Label _targetingLabel;
     [Export] private GoalController _goalController;
-    [Export] private Node3D _pickaxeParent;
 
 	private float _cameraBobbing = 10;
 	private double _timeSinceStartedMoving;
@@ -114,7 +113,7 @@ public partial class Player : CharacterBody3D
             _goalController.InteractWith(parent, (GoalController.Item)item);
         }
         
-        _targetingLabel.Text = $"[${InputMap.GetActionDescription("pickup_item")}] ${GoalController.LookAtDescription[(GoalController.Item)item]}";
+        _targetingLabel.Text = $"[{InputMap.GetActionDescription("pickup_item")}] {GoalController.LookAtDescription[(GoalController.Item)item]}";
     }
 
 	public override void _Input(InputEvent motionUnknown)

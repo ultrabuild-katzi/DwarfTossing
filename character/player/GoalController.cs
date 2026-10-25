@@ -7,20 +7,20 @@ namespace DwarfTossing.Character.Player;
 
 public partial class GoalController : Node
 {
-    private MainGoal _mainGoal = 0;
-    private TemporaryGoal? _temporaryGoal = null;
-    private double _temporaryGoalTimeoutSeconds = 0;
+    private MainGoal _mainGoal;
+    private TemporaryGoal? _temporaryGoal;
+    private double _temporaryGoalTimeoutSeconds;
     private double _mainGoalVisibleForSeconds;
 
     [Export] private SanityController _sanityController;
-
     [Export] private Label _mainGoalLabel;
     [Export] private Label _temporaryGoalLabel;
 
-    private readonly Random _random = new Random();
+    private readonly Random _random = new();
 
     private static readonly Dictionary<MainGoal, string> GoalDescriptions = new()
     {
+        { MainGoal.Init, "STILL LOADING GAME" },
         { MainGoal.FindCompass, "Find a compass" },
         { MainGoal.LookAfterCompass, "Look after the compass" },
         { MainGoal.FindVillage, "Explore the new area" },
@@ -51,6 +51,12 @@ public partial class GoalController : Node
         { Item.Cobblestone, "Mine Cobblestone" },
     };
 
+    public override void _Ready()
+    {
+        Progress();
+        _mainGoalVisibleForSeconds = 0;
+    }
+
     public override void _PhysicsProcess(double delta)
     {
         if (_sanityController._sanity > 0 && _temporaryGoal == null && _temporaryGoalTimeoutSeconds <= 0)
@@ -58,7 +64,8 @@ public partial class GoalController : Node
             _temporaryGoal = _random.GetItems(Enum.GetValues<TemporaryGoal>(), 1)[0];
         }
 
-        _temporaryGoalTimeoutSeconds -= delta;
+        if(_temporaryGoalTimeoutSeconds > 0)
+            _temporaryGoalTimeoutSeconds -= delta;
         _mainGoalVisibleForSeconds += delta;
 
         if (_mainGoalVisibleForSeconds < 0)
@@ -163,6 +170,7 @@ public partial class GoalController : Node
 
     enum MainGoal
     {
+        Init,
         FindCompass,
         LookAfterCompass,
         FindVillage,

@@ -6,9 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://cqph1fsy0h3mi" path="res://character/player/torch.png" id="3_wu8e1"]
 [ext_resource type="Texture2D" uid="uid://sb16ofmutq82" path="res://character/player/dwarf_pickaxe.png" id="4_eu8pa"]
 [ext_resource type="Script" uid="uid://cyvnmin3h5nxj" path="res://character/player/SanityController.cs" id="4_wu8e1"]
-[ext_resource type="Script" uid="uid://bduaa377sp6s" path="res://character/player/GoalController.cs" id="7_noxpy"]
 [ext_resource type="Texture2D" uid="uid://6mubcaqfatfv" path="res://character/player/Arrow.png" id="7_noxpy"]
 [ext_resource type="Script" uid="uid://ck5hdefup0wvt" path="res://character/player/Compass.cs" id="8_0cf6c"]
+[ext_resource type="Script" uid="uid://bduaa377sp6s" path="res://character/player/GoalController.cs" id="9_v2h1c"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ayj7t"]
 shader = ExtResource("3_g20gq")
@@ -20,13 +20,13 @@ shader_parameter/random_modifier = 0.0
 radius = 0.2524414
 height = 1.1693726
 
-[node name="player" type="CharacterBody3D" unique_id=1455122187 node_paths=PackedStringArray("_camera", "_targetingLabel", "_excludeFromRaycasting")]
+[node name="player" type="CharacterBody3D" unique_id=1455122187 node_paths=PackedStringArray("_camera", "_targetingLabel", "_goalController")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
 script = ExtResource("1_gtsfv")
 FollowSpeed = 0.2
 _camera = NodePath("Camera3D")
-_targetingLabel = NodePath("CanvasLayer/MainGoalLabel")
-_excludeFromRaycasting = []
+_targetingLabel = NodePath("CanvasLayer/InteractLabel")
+_goalController = NodePath("GoalController")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1442233393]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
@@ -104,10 +104,18 @@ offset_top = 66.0
 offset_right = 411.0
 offset_bottom = 115.0
 
+[node name="InteractLabel" type="Label" parent="CanvasLayer" unique_id=181672384]
+offset_left = 379.0
+offset_top = 409.0
+offset_right = 788.0
+offset_bottom = 458.0
+
 [node name="PlayerCollider" type="CollisionShape3D" parent="." unique_id=2059975240]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.062469482, 0)
 shape = SubResource("CapsuleShape3D_euv82")
 
-[node name="GoalController" type="Node" parent="." unique_id=327724183 node_paths=PackedStringArray("_sanityController")]
-script = ExtResource("7_noxpy")
+[node name="GoalController" type="Node" parent="." unique_id=327724183 node_paths=PackedStringArray("_sanityController", "_mainGoalLabel", "_temporaryGoalLabel")]
+script = ExtResource("9_v2h1c")
 _sanityController = NodePath("../CanvasLayer/FilmGrainRect")
+_mainGoalLabel = NodePath("../CanvasLayer/MainGoalLabel")
+_temporaryGoalLabel = NodePath("../CanvasLayer/TemporaryMainGoalLabel")
