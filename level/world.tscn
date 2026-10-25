@@ -44,7 +44,7 @@ billboard_keep_scale = true
 grow_amount = 0.1
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_71sqb"]
-size = Vector3(5.727127, 1, 6.2597885)
+size = Vector3(4.612446, 1, 6.2891903)
 
 [sub_resource type="Curve" id="Curve_1jcqx"]
 _data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(1e-05, 1), 0.0, 0.0, 0, 0, Vector2(0.75, 0.9550562), 0.0, 0.0, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -100,10 +100,11 @@ billboard_mode = 1
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=828307134]
 environment = SubResource("Environment_8eijk")
 
-[node name="player" parent="." unique_id=1455122187 node_paths=PackedStringArray("_footstepsStream") instance=ExtResource("2_tjjer")]
-transform = Transform3D(-0.9999999, 0, 8.742277e-08, 0, 1, 0, -8.742277e-08, 0, -0.9999999, -33.348923, 4, -6.573729)
+[node name="player" parent="." unique_id=1455122187 node_paths=PackedStringArray("_footstepsStream", "_targetingLabel") instance=ExtResource("2_tjjer")]
+transform = Transform3D(-0.9999999, 0, 8.742277e-08, 0, 1, 0, -8.742277e-08, 0, -0.9999999, -5.968994, 4, -65.22147)
 FollowSpeed = 0.3
 _footstepsStream = NodePath("FootstepsPlayer")
+_targetingLabel = NodePath("CanvasLayer/Label")
 
 [node name="AmbientPlayer" type="AudioStreamPlayer3D" parent="player" unique_id=1655936800]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
@@ -343,6 +344,8 @@ texture = ExtResource("3_tjjer")
 [node name="BoomArea" type="Area3D" parent="." unique_id=604927092]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.617134, 3.8540468, 8.161501)
 script = ExtResource("12_1jcqx")
+_fromIndex = 35
+_toIndex = 59
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BoomArea" unique_id=47330915]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6057968, 0, 1.6926155)
@@ -360,6 +363,31 @@ draw_pass_1 = SubResource("SphereMesh_vfs2c")
 
 [node name="BoomPlayer" type="AudioStreamPlayer3D" parent="BoomArea" unique_id=2057255470]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2452374, 0.46107674, 3.1513252)
+stream = ExtResource("13_kbmj6")
+volume_db = -13.489
+
+[node name="CompassBoomArea" type="Area3D" parent="." unique_id=2059005307]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.63862944, 3.8540468, -67.86716)
+script = ExtResource("12_1jcqx")
+_fromIndex = 61
+_toIndex = 68
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CompassBoomArea" unique_id=937492598]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7557697, 0, 1.1541061)
+shape = SubResource("BoxShape3D_71sqb")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="CompassBoomArea" unique_id=2054750471]
+transform = Transform3D(0.99995583, -0.009401321, 0, 0.009401321, 0.99995583, 0, 0, 0, 1, 2.1450477, 0.46751451, -5.4744797)
+emitting = false
+amount = 26
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_71sqb")
+draw_pass_1 = SubResource("SphereMesh_vfs2c")
+
+[node name="BoomPlayer" type="AudioStreamPlayer3D" parent="CompassBoomArea" unique_id=337210179]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.020389, 0.46107674, -5.2533875)
 stream = ExtResource("13_kbmj6")
 volume_db = -13.489
 
