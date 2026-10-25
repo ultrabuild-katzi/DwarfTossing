@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://cqph1fsy0h3mi" path="res://character/player/torch.png" id="3_wu8e1"]
 [ext_resource type="Texture2D" uid="uid://sb16ofmutq82" path="res://character/player/dwarf_pickaxe.png" id="4_eu8pa"]
 [ext_resource type="Script" uid="uid://cyvnmin3h5nxj" path="res://character/player/SanityController.cs" id="4_wu8e1"]
+[ext_resource type="Texture2D" uid="uid://6mubcaqfatfv" path="res://character/player/Arrow.png" id="7_noxpy"]
+[ext_resource type="Script" uid="uid://ck5hdefup0wvt" path="res://character/player/Compass.cs" id="8_0cf6c"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ayj7t"]
 shader = ExtResource("3_g20gq")
@@ -59,6 +61,15 @@ visible = false
 billboard = 1
 texture_filter = 0
 texture = ExtResource("4_eu8pa")
+
+[node name="Compass" type="Sprite3D" parent="Camera3D" unique_id=1963505310]
+transform = Transform3D(2.0061126, 0, 0, 0, -8.768997e-08, 2.0061126, 0, -2.0061126, -8.768997e-08, -4.925302e-08, 0.51267654, -1.1267778)
+flip_h = true
+flip_v = true
+axis = 1
+texture_filter = 0
+texture = ExtResource("7_noxpy")
+script = ExtResource("8_0cf6c")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1050109276]
 
