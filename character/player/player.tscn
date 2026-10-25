@@ -118,8 +118,9 @@ offset_bottom = 458.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.062469482, 0)
 shape = SubResource("CapsuleShape3D_euv82")
 
-[node name="GoalController" type="Node" parent="." unique_id=327724183 node_paths=PackedStringArray("_sanityController", "_mainGoalLabel", "_temporaryGoalLabel")]
+[node name="GoalController" type="Node" parent="." unique_id=327724183 node_paths=PackedStringArray("_player", "_sanityController", "_mainGoalLabel", "_temporaryGoalLabel")]
 script = ExtResource("9_v2h1c")
+_player = NodePath("..")
 _sanityController = NodePath("../CanvasLayer/FilmGrainRect")
 _mainGoalLabel = NodePath("../CanvasLayer/MainGoalLabel")
 _temporaryGoalLabel = NodePath("../CanvasLayer/TemporaryMainGoalLabel")
@@ -150,6 +151,7 @@ offset_top = 51.0
 offset_right = 348.0
 offset_bottom = 67.0
 min_value = 1.0
+max_value = 50.0
 value = 15.0
 tick_count = 1
 

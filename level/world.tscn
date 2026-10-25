@@ -14,6 +14,8 @@
 [ext_resource type="Script" uid="uid://cbhsnhimmdrcs" path="res://level/BoomArea.cs" id="12_1jcqx"]
 [ext_resource type="AudioStream" uid="uid://dksbo4rg05q2x" path="res://sfx/Landslide.mp3" id="13_kbmj6"]
 [ext_resource type="Texture2D" uid="uid://sb16ofmutq82" path="res://character/player/dwarf_pickaxe.png" id="14_y8oei"]
+[ext_resource type="Script" uid="uid://b31hehaf5d2m6" path="res://level/ExitWatcher.cs" id="15_5y8g2"]
+[ext_resource type="Texture2D" uid="uid://dkdrouy8s1sfi" path="res://character/dwarf/dwarf.png" id="16_ilqn7"]
 
 [sub_resource type="Environment" id="Environment_8eijk"]
 ambient_light_energy = 0.0
@@ -95,15 +97,23 @@ texture_filter = 0
 texture_repeat = false
 billboard_mode = 1
 
+[sub_resource type="BoxMesh" id="BoxMesh_71sqb"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vfs2c"]
+shading_mode = 0
+albedo_color = Color(18.892157, 18.892157, 18.892157, 1)
+disable_receive_shadows = true
+
 [node name="World" type="Node3D" unique_id=1945656188]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=828307134]
 environment = SubResource("Environment_8eijk")
 
-[node name="player" parent="." unique_id=1455122187 node_paths=PackedStringArray("_footstepsStream") instance=ExtResource("2_tjjer")]
+[node name="player" parent="." unique_id=1455122187 node_paths=PackedStringArray("_footstepsStream", "_dwarf") instance=ExtResource("2_tjjer")]
 transform = Transform3D(-0.9999999, 0, 8.742277e-08, 0, 1, 0, -8.742277e-08, 0, -0.9999999, -33.348923, 4, -6.573729)
 FollowSpeed = 0.3
 _footstepsStream = NodePath("FootstepsPlayer")
+_dwarf = NodePath("../Dwarf")
 
 [node name="AmbientPlayer" type="AudioStreamPlayer3D" parent="player" unique_id=1655936800]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
@@ -421,3 +431,24 @@ light_energy = 2.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.347878, 4.2954383, 74.35366)
 light_color = Color(1, 0.64, 0.64, 1)
 light_energy = 2.0
+
+[node name="Exit" type="CSGMesh3D" parent="." unique_id=275606509]
+transform = Transform3D(0.05624646, 0, 0, 0, 6.1959906, 0, 0, 0, 6.1959906, -37.13971, 5.3057666, -6.9367323)
+mesh = SubResource("BoxMesh_71sqb")
+material = SubResource("StandardMaterial3D_vfs2c")
+
+[node name="ExitWatcher" type="Node3D" parent="." unique_id=1117051392]
+script = ExtResource("15_5y8g2")
+
+[node name="Dwarf" type="Sprite3D" parent="." unique_id=1470514822]
+transform = Transform3D(2.0003808, 0, 1.421356e-14, 0, 2.0003808, 0, -1.421356e-14, 0, 2.0003808, -29.318165, 3.6440449, -6.573729)
+visible = false
+billboard = 1
+texture_filter = 0
+texture = ExtResource("16_ilqn7")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Dwarf" unique_id=399546600]
+transform = Transform3D(0.51976573, 0, 0, 0, 0.51976573, 0, 0, 0, 0.51976573, -3.8136225, 0.59950006, 0)
+light_energy = 16.0
+
+[connection signal="Exit" from="ExitWatcher" to="player" method="OnExit"]
