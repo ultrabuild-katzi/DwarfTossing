@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://dgufhcccvowo0"]
+
+[ext_resource type="Script" uid="uid://bla0icjgbo4vr" path="res://StartGameButton.cs" id="1_wut1r"]
+
+[node name="Node2D" type="Node2D" unique_id=1242038113]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=170875570]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=1574217055]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.096204735, 0.09620475, 0.096204735, 1)
+
+[node name="Label" type="Label" parent="CanvasLayer" unique_id=57192981]
+offset_left = 19.0
+offset_top = 30.0
+offset_right = 1706.0
+offset_bottom = 369.0
+theme_override_font_sizes/font_size = 113
+text = "Dwarf Tossing"
+
+[node name="Button" type="Button" parent="CanvasLayer" unique_id=1719717087]
+offset_left = 39.0
+offset_top = 285.0
+offset_right = 258.0
+offset_bottom = 363.0
+theme_override_font_sizes/font_size = 69
+text = "Start!"
+script = ExtResource("1_wut1r")

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="DwarfTossing"
-run/main_scene="uid://b8w5r46ksjgj2"
+run/main_scene="uid://dgufhcccvowo0"
 config/features=PackedStringArray("4.7", "C#", "Forward Plus")
 config/icon="res://brand/icon.svg"
 
@@ -28,6 +28,10 @@ display_server/driver.linuxbsd="wayland"
 [dotnet]
 
 project/assembly_name="DwarfTossing"
+
+[gui]
+
+theme/custom_font="uid://qh5qknfnb7l2"
 
 [input]
 

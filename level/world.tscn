@@ -100,11 +100,10 @@ billboard_mode = 1
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=828307134]
 environment = SubResource("Environment_8eijk")
 
-[node name="player" parent="." unique_id=1455122187 node_paths=PackedStringArray("_footstepsStream", "_targetingLabel") instance=ExtResource("2_tjjer")]
-transform = Transform3D(-0.9999999, 0, 8.742277e-08, 0, 1, 0, -8.742277e-08, 0, -0.9999999, -5.968994, 4, -65.22147)
+[node name="player" parent="." unique_id=1455122187 node_paths=PackedStringArray("_footstepsStream") instance=ExtResource("2_tjjer")]
+transform = Transform3D(-4.3711385e-08, 0, -0.9999999, 0, 1, 0, 0.9999999, 0, -4.3711385e-08, -33.348923, 4, -6.573729)
 FollowSpeed = 0.3
 _footstepsStream = NodePath("FootstepsPlayer")
-_targetingLabel = NodePath("CanvasLayer/Label")
 
 [node name="AmbientPlayer" type="AudioStreamPlayer3D" parent="player" unique_id=1655936800]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)

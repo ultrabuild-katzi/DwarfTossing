@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://6mubcaqfatfv" path="res://character/player/Arrow.png" id="7_noxpy"]
 [ext_resource type="Script" uid="uid://ck5hdefup0wvt" path="res://character/player/Compass.cs" id="8_0cf6c"]
 [ext_resource type="Script" uid="uid://bduaa377sp6s" path="res://character/player/GoalController.cs" id="9_v2h1c"]
+[ext_resource type="Script" uid="uid://bw7khou8nld6b" path="res://character/player/VolumeSlider.cs" id="10_qh58e"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ayj7t"]
 shader = ExtResource("3_g20gq")
@@ -119,3 +120,52 @@ script = ExtResource("9_v2h1c")
 _sanityController = NodePath("../CanvasLayer/FilmGrainRect")
 _mainGoalLabel = NodePath("../CanvasLayer/MainGoalLabel")
 _temporaryGoalLabel = NodePath("../CanvasLayer/TemporaryMainGoalLabel")
+
+[node name="Menu" type="CanvasLayer" parent="." unique_id=1324682237]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="Menu" unique_id=1652145621]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.05, 0.05, 0.05, 0.34901962)
+
+[node name="Mouse Sensitivity" type="Label" parent="Menu/ColorRect" unique_id=995596419]
+layout_mode = 0
+offset_left = 19.0
+offset_top = 19.0
+offset_right = 161.0
+offset_bottom = 36.0
+theme_override_font_sizes/font_size = 40
+text = "Mouse Sensitivity"
+
+[node name="HSlider" type="HSlider" parent="Menu/ColorRect/Mouse Sensitivity" unique_id=315087999]
+layout_mode = 0
+offset_top = 51.0
+offset_right = 348.0
+offset_bottom = 67.0
+min_value = 1.0
+value = 15.0
+tick_count = 1
+
+[node name="Volume" type="Label" parent="Menu/ColorRect" unique_id=842771409]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 121.0
+offset_right = 172.0
+offset_bottom = 206.0
+theme_override_font_sizes/font_size = 40
+text = "Volume
+"
+
+[node name="HSlider" type="HSlider" parent="Menu/ColorRect/Volume" unique_id=1242221067]
+layout_mode = 0
+offset_top = 45.0
+offset_right = 355.0
+offset_bottom = 61.0
+min_value = -20.0
+max_value = 20.0
+value = 10.0
+script = ExtResource("10_qh58e")

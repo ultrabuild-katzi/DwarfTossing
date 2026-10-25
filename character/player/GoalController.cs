@@ -64,7 +64,7 @@ public partial class GoalController : Node
             _temporaryGoal = _random.GetItems(Enum.GetValues<TemporaryGoal>(), 1)[0];
         }
 
-        if(_temporaryGoalTimeoutSeconds > 0)
+        if (_temporaryGoalTimeoutSeconds > 0)
             _temporaryGoalTimeoutSeconds -= delta;
         _mainGoalVisibleForSeconds += delta;
 
@@ -124,7 +124,7 @@ public partial class GoalController : Node
                 Progress();
                 itemInstance.GetParent().RemoveChild(itemInstance);
                 break;
-            
+
             case Item.Cobblestone:
                 // Todo break block
                 break;
