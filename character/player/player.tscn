@@ -4,6 +4,7 @@
 [ext_resource type="AudioStream" uid="uid://dtrmeyccueivc" path="res://sfx/firecrackling.mp3" id="3_eu8pa"]
 [ext_resource type="Shader" uid="uid://cb0sy514ig1x2" path="res://character/player/film_grain.gdshader" id="3_g20gq"]
 [ext_resource type="Texture2D" uid="uid://cqph1fsy0h3mi" path="res://character/player/torch.png" id="3_wu8e1"]
+[ext_resource type="Texture2D" uid="uid://sb16ofmutq82" path="res://character/player/dwarf_pickaxe.png" id="4_eu8pa"]
 [ext_resource type="Script" uid="uid://cyvnmin3h5nxj" path="res://character/player/SanityController.cs" id="4_wu8e1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ayj7t"]
@@ -16,12 +17,12 @@ shader_parameter/random_modifier = 0.0
 radius = 0.2524414
 height = 1.1693726
 
-[node name="player" type="CharacterBody3D" unique_id=1455122187 node_paths=PackedStringArray("_camera", "_targettingLabel")]
+[node name="player" type="CharacterBody3D" unique_id=1455122187 node_paths=PackedStringArray("_camera", "_targetingLabel")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
 script = ExtResource("1_gtsfv")
 FollowSpeed = 0.2
 _camera = NodePath("Camera3D")
-_targettingLabel = NodePath("CanvasLayer/Label")
+_targetingLabel = NodePath("CanvasLayer/Label")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1442233393]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
@@ -50,6 +51,13 @@ volume_db = -26.916
 pitch_scale = 1.33
 autoplay = true
 parameters/looping = true
+
+[node name="Pickaxe" type="Sprite3D" parent="Camera3D" unique_id=1996517032]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.60051984, -0.23030007, -0.69873416)
+visible = false
+billboard = 1
+texture_filter = 0
+texture = ExtResource("4_eu8pa")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1050109276]
 

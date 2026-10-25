@@ -18,7 +18,12 @@ public partial class Player : CharacterBody3D
 	[Export]
 	private AudioStreamPlayer3D _footstepsStream;
 
-    [Export] private Label _targetingLabel;
+	[Export] private Label _targetingLabel;
+
+	[Export]
+	private StaticBody3D[] _excludeFromRaycasting;
+
+	private bool _hasPickaxe = false;
 
 	private float _cameraBobbing = 10;
 	private double _elapsedTime;
@@ -39,12 +44,12 @@ public partial class Player : CharacterBody3D
 		}
 
 		Vector2 inputDir = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-        Vector3 camForward = _camera.GlobalTransform.Basis.Z;
-        camForward.Y = 0;
-        camForward = camForward.Normalized();
-        Vector3 camRight = _camera.GlobalTransform.Basis.X;
-        camRight.Y = 0;
-        camRight = camRight.Normalized();
+		Vector3 camForward = _camera.GlobalTransform.Basis.Z;
+		camForward.Y = 0;
+		camForward = camForward.Normalized();
+		Vector3 camRight = _camera.GlobalTransform.Basis.X;
+		camRight.Y = 0;
+		camRight = camRight.Normalized();
 
 		Vector3 direction = (camRight * inputDir.X + camForward * inputDir.Y).Normalized();
 
@@ -79,44 +84,49 @@ public partial class Player : CharacterBody3D
 
 		MoveAndSlide();
 
-        Vector2 screenCenter = GetViewport().GetVisibleRect().Size / 2;
-        Vector3 rayOrigin = _camera.ProjectRayOrigin(screenCenter);
-        Vector3 rayEnd = rayOrigin + _camera.ProjectRayNormal(screenCenter) * 5;
+		Vector2 screenCenter = GetViewport().GetVisibleRect().Size / 2;
+		Vector3 rayOrigin = _camera.ProjectRayOrigin(screenCenter);
+		Vector3 rayEnd = rayOrigin + _camera.ProjectRayNormal(screenCenter) * 5;
 
-        PhysicsDirectSpaceState3D spaceState = GetWorld3D().DirectSpaceState;
+		PhysicsDirectSpaceState3D spaceState = GetWorld3D().DirectSpaceState;
 
-        var query = PhysicsRayQueryParameters3D.Create(rayOrigin, rayEnd);
-        query.Exclude = [GetRid()];
+		var query = PhysicsRayQueryParameters3D.Create(rayOrigin, rayEnd);
+		query.Exclude = [GetRid()];
 
-        Godot.Collections.Dictionary hitResult = spaceState.IntersectRay(query);
-        
 
-        if (hitResult.Count <= 0)
-        {
-            _targetingLabel.Text = $"Hit object: None";
-            return;
-        }   
-            
-        Node3D collider = (Node3D)hitResult["collider"];
-        string name = collider.Name.ToString();
-        if (name.StartsWith("water"))
-        {
-            
-        }
-        
-        
-        _targetingLabel.Text = $"Hit object: {collider.Name}";
+		Godot.Collections.Dictionary hitResult = spaceState.IntersectRay(query);
 
-        
-        if (Input.IsActionJustReleased("pickup_item"))
-        {
-            
-        }
-        
 
-    }
+		if (hitResult.Count <= 0)
+		{
+			_targetingLabel.Text = $"Hit object: None";
+			return;
+		}
 
-    
+		Node3D collider = (Node3D)hitResult["collider"];
+		string name = collider.GetParent().GetParent().Name.ToString();
+
+		if (name.StartsWith("water"))
+		{
+			if (Input.IsActionJustReleased("pickup_item"))
+			{
+				Node3D parent = collider.GetChild(0) as Node3D;
+				parent.Hide();
+			}
+		}
+
+
+		_targetingLabel.Text = $"Hit object: {collider.Name}";
+
+	}
+
+	public void PickupPickaxe()
+	{
+		_hasPickaxe = true;
+		GetNode<Sprite3D>("Camera3D/Pickaxe").Visible = true;
+	}
+
+
 	public override void _Input(InputEvent motionUnknown)
 	{
 		if (motionUnknown is InputEventMouseMotion mouseMotion)
