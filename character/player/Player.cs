@@ -29,15 +29,17 @@ public partial class Player : CharacterBody3D
 	private float _cameraBobbing = 10;
 	private double _elapsedTime;
 
+	private Node3D _pickaxeParent;
+
 	public override void _Ready()
 	{
 		Input.MouseMode = Input.MouseModeEnum.Captured;
+		_pickaxeParent = GetNode<Node3D>("../PickaxeParent");
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
 		Vector3 velocity = Velocity;
-		//
 		// Add the gravity.
 		if (!IsOnFloor())
 		{
@@ -87,7 +89,7 @@ public partial class Player : CharacterBody3D
 
 		Vector2 screenCenter = GetViewport().GetVisibleRect().Size / 2;
 		Vector3 rayOrigin = _camera.ProjectRayOrigin(screenCenter);
-		Vector3 rayEnd = rayOrigin + _camera.ProjectRayNormal(screenCenter) * 5;
+		Vector3 rayEnd = rayOrigin + _camera.ProjectRayNormal(screenCenter) * 2.5f;
 
 		PhysicsDirectSpaceState3D spaceState = GetWorld3D().DirectSpaceState;
 
@@ -107,14 +109,20 @@ public partial class Player : CharacterBody3D
 		}
 
 		Node3D collider = (Node3D)hitResult["collider"];
-		string name = collider.GetParent().Name.ToString();
+		string name = collider.Name.ToString();
 
-		if (name.StartsWith("water"))
+		if (Input.IsActionJustReleased("pickup_item"))
 		{
-			if (Input.IsActionJustReleased("pickup_item"))
+			if (name.StartsWith("water"))
 			{
-				Node3D parent = collider.GetChild(0) as Node3D;
-				parent.Hide();
+
+			}
+
+			if (name.Equals("PickaxeParent"))
+			{
+				PickupPickaxe();
+				var world = collider.GetParent();
+				world.RemoveChild(collider);
 			}
 		}
 
