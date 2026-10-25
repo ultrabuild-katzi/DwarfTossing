@@ -39,7 +39,7 @@ texture = ExtResource("3_wu8e1")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Camera3D/Torch" unique_id=2005763321]
 light_color = Color(0.80784315, 0.8352941, 0.58431375, 1)
-light_energy = 0.27
+light_energy = 0.4
 light_indirect_energy = 0.4
 light_volumetric_fog_energy = 0.5
 light_specular = 0.0
@@ -87,6 +87,6 @@ offset_right = 715.0
 offset_bottom = 169.0
 text = "Uwuwuwuwuwuuwuw"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2059975240]
+[node name="PlayerCollider" type="CollisionShape3D" parent="." unique_id=2059975240]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.062469482, 0)
 shape = SubResource("CapsuleShape3D_euv82")

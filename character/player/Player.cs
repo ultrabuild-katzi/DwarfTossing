@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DwarfTossing.Character.Player;
 
@@ -92,9 +93,9 @@ public partial class Player : CharacterBody3D
 
 		var query = PhysicsRayQueryParameters3D.Create(rayOrigin, rayEnd);
 		query.Exclude = [GetRid()];
-        query.CollideWithAreas = true;
-        query.CollideWithBodies = true;
-        query.CollisionMask = 2 | 4; // ONLY OUR ITEMS - YEAH!
+		query.CollideWithAreas = true;
+		query.CollideWithBodies = true;
+		query.CollisionMask = 2 | 4; // ONLY OUR ITEMS - YEAH!
 
 		Godot.Collections.Dictionary hitResult = spaceState.IntersectRay(query);
 
@@ -127,7 +128,6 @@ public partial class Player : CharacterBody3D
 		_hasPickaxe = true;
 		GetNode<Sprite3D>("Camera3D/Pickaxe").Visible = true;
 	}
-
 
 	public override void _Input(InputEvent motionUnknown)
 	{
