@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cqph1fsy0h3mi" path="res://character/player/torch.png" id="3_wu8e1"]
 [ext_resource type="Texture2D" uid="uid://sb16ofmutq82" path="res://character/player/dwarf_pickaxe.png" id="4_eu8pa"]
 [ext_resource type="Script" uid="uid://cyvnmin3h5nxj" path="res://character/player/SanityController.cs" id="4_wu8e1"]
+[ext_resource type="Script" uid="uid://bduaa377sp6s" path="res://character/player/GoalController.cs" id="7_noxpy"]
 [ext_resource type="Texture2D" uid="uid://6mubcaqfatfv" path="res://character/player/Arrow.png" id="7_noxpy"]
 [ext_resource type="Script" uid="uid://ck5hdefup0wvt" path="res://character/player/Compass.cs" id="8_0cf6c"]
 
@@ -24,7 +25,7 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0
 script = ExtResource("1_gtsfv")
 FollowSpeed = 0.2
 _camera = NodePath("Camera3D")
-_targetingLabel = NodePath("CanvasLayer/Label")
+_targetingLabel = NodePath("CanvasLayer/MainGoalLabel")
 _excludeFromRaycasting = []
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1442233393]
@@ -93,11 +94,20 @@ grow_vertical = 2
 color = Color(1, 1, 1, 0)
 script = ExtResource("4_wu8e1")
 
-[node name="Label" type="Label" parent="CanvasLayer" unique_id=255734862]
-offset_right = 715.0
-offset_bottom = 169.0
-text = "Uwuwuwuwuwuuwuw"
+[node name="MainGoalLabel" type="Label" parent="CanvasLayer" unique_id=255734862]
+offset_right = 424.0
+offset_bottom = 49.0
+
+[node name="TemporaryMainGoalLabel" type="Label" parent="CanvasLayer" unique_id=1769273806]
+offset_left = 2.0
+offset_top = 66.0
+offset_right = 411.0
+offset_bottom = 115.0
 
 [node name="PlayerCollider" type="CollisionShape3D" parent="." unique_id=2059975240]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.062469482, 0)
 shape = SubResource("CapsuleShape3D_euv82")
+
+[node name="GoalController" type="Node" parent="." unique_id=327724183 node_paths=PackedStringArray("_sanityController")]
+script = ExtResource("7_noxpy")
+_sanityController = NodePath("../CanvasLayer/FilmGrainRect")
