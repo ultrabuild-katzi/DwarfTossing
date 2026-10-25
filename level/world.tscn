@@ -101,7 +101,7 @@ billboard_mode = 1
 environment = SubResource("Environment_8eijk")
 
 [node name="player" parent="." unique_id=1455122187 node_paths=PackedStringArray("_footstepsStream") instance=ExtResource("2_tjjer")]
-transform = Transform3D(-4.3711385e-08, 0, -0.9999999, 0, 1, 0, 0.9999999, 0, -4.3711385e-08, -33.348923, 4, -6.573729)
+transform = Transform3D(-0.9999999, 0, 8.742277e-08, 0, 1, 0, -8.742277e-08, 0, -0.9999999, -33.348923, 4, -6.573729)
 FollowSpeed = 0.3
 _footstepsStream = NodePath("FootstepsPlayer")
 

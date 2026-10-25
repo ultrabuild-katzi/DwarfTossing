@@ -12,25 +12,14 @@ public partial class GoalController : Node
     private double _temporaryGoalTimeoutSeconds;
     private double _mainGoalVisibleForSeconds;
 
+    [Export] private Player _player;
     [Export] private SanityController _sanityController;
     [Export] private Label _mainGoalLabel;
     [Export] private Label _temporaryGoalLabel;
+    [Export] private double _hintSeconds = 120;
 
     private readonly Random _random = new();
-
-    private static readonly Dictionary<MainGoal, string> GoalDescriptions = new()
-    {
-        { MainGoal.Init, "STILL LOADING GAME" },
-        { MainGoal.FindCompass, "Find a compass" },
-        { MainGoal.LookAfterCompass, "Look after the compass" },
-        { MainGoal.FindVillage, "Explore the new area" },
-        { MainGoal.MineOutOfCave1, "Use the pickaxe to mine the entrance" },
-        { MainGoal.TemporaryGoalForce1, "Fulfill your desires" },
-        { MainGoal.MineOutOfCave2, "Mine your way free through the entrance" },
-        { MainGoal.TemporaryGoalForce2, "Fulfill your desires" },
-        { MainGoal.SeeLittleGuy, "Go back to the entrance" }
-    };
-
+    
     private static readonly Dictionary<string, Item> ItemModelNames = new()
     {
         { "water", Item.Water },
@@ -39,16 +28,6 @@ public partial class GoalController : Node
         { "pickaxe", Item.Pickaxe },
         { "compass", Item.Compass },
         { "cobblestone", Item.Cobblestone },
-    };
-
-    public static readonly Dictionary<Item, string> LookAtDescription = new()
-    {
-        { Item.EatableMushroom, "Eat Mushroom" },
-        { Item.PoisonousMushroom, "Eat Mushroom" },
-        { Item.Water, "Drink Water" },
-        { Item.Compass, "Pickup Compass" },
-        { Item.Pickaxe, "Pickup Pickaxe" },
-        { Item.Cobblestone, "Mine Cobblestone" },
     };
 
     public override void _Ready()
@@ -66,24 +45,21 @@ public partial class GoalController : Node
 
         if (_temporaryGoalTimeoutSeconds > 0)
             _temporaryGoalTimeoutSeconds -= delta;
+
         _mainGoalVisibleForSeconds += delta;
+        _mainGoalLabel.Text = Translations.GoalDescriptions[_hintSeconds < 0 ? _mainGoal - 1 : _mainGoal];
+        InterpolateAlpha(_mainGoalLabel, _mainGoalVisibleForSeconds > _hintSeconds ? 1 : 0, delta * 2);
 
-        if (_mainGoalVisibleForSeconds < 0)
-        {
-            _mainGoalLabel.Text = GoalDescriptions[_mainGoal - 1];
+        if (_temporaryGoal != null)
+            _temporaryGoalLabel.Text = Translations.TemporaryGoalDescriptions[(TemporaryGoal)_temporaryGoal];
+        InterpolateAlpha(_temporaryGoalLabel, _temporaryGoal == null ? 0 : 1, delta * 2);
+    }
 
-            Color color = _mainGoalLabel.Modulate;
-            color.A = (float)(1 - _mainGoalVisibleForSeconds / 2);
-            _mainGoalLabel.Modulate = color;
-        }
-        else if (_mainGoalVisibleForSeconds is > 60 and < 62)
-        {
-            _mainGoalLabel.Text = GoalDescriptions[_mainGoal];
-
-            Color color = _mainGoalLabel.Modulate;
-            color.A = (float)((_mainGoalVisibleForSeconds - 60) / 2);
-            _mainGoalLabel.Modulate = color;
-        }
+    public void InterpolateAlpha(Label label, int toAlpha, double weight)
+    {
+        Color color = label.Modulate;
+        color.A = (float)Mathf.Lerp(color.A, toAlpha, weight);
+        label.Modulate = color;
     }
 
     public void Progress()
@@ -93,6 +69,7 @@ public partial class GoalController : Node
 
         GetNode<Sprite3D>("../Camera3D/Pickaxe").Visible = HasPickaxeInCurrentState();
         GetNode<Sprite3D>("../Camera3D/Compass").Visible = _mainGoal == MainGoal.LookAfterCompass;
+        _player.EmitGoalChange(_mainGoal);
     }
 
     public void InteractWith(Node itemInstance, Item item)
@@ -168,10 +145,11 @@ public partial class GoalController : Node
         return null;
     }
 
-    enum MainGoal
+    public enum MainGoal
     {
         Init,
         FindCompass,
+        PickupCompass,
         LookAfterCompass,
         FindVillage,
         MineOutOfCave1,
@@ -181,7 +159,7 @@ public partial class GoalController : Node
         SeeLittleGuy
     }
 
-    enum TemporaryGoal
+    public enum TemporaryGoal
     {
         Drink,
         Eat

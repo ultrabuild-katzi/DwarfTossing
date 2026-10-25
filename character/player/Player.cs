@@ -1,5 +1,4 @@
 using Godot;
-using Godot.NativeInterop;
 using System;
 
 namespace DwarfTossing.Character.Player;
@@ -12,47 +11,45 @@ public partial class Player : CharacterBody3D
 	[Export] private AudioStreamPlayer3D _footstepsStream;
 	[Export] private Label _targetingLabel;
 	[Export] private GoalController _goalController;
-
+    [Signal] public delegate void GoalChangeEventHandler(GoalController.MainGoal goal);
+    
 	private float _cameraBobbing = 10;
 	private double _timeSinceStartedMoving;
-
-	private CanvasLayer _menu;
-
-	private bool _paused = false;
-
+    
+    [Export] private CanvasLayer _menu;
+    private bool _paused = false;
+    
 	public override void _Ready()
 	{
 		Input.MouseMode = Input.MouseModeEnum.Captured;
-
-		_menu = GetNode<CanvasLayer>("Menu");
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
+        if (Input.IsPhysicalKeyPressed(Key.Escape))
+        {
+            _paused = !_paused;
+            if (_paused)
+            {
+                _menu.Show();
+                Input.MouseMode = Input.MouseModeEnum.Confined;
+            }
+            else
+            {
+                _menu.Hide();
+                Input.MouseMode = Input.MouseModeEnum.Captured;
+            }
+        }
+
+        if (_paused)
+            return;
+        
 		HandleMovement(delta);
 		HandleInteractions(delta);
 	}
 
 	private void HandleMovement(double delta)
 	{
-		if (Input.IsPhysicalKeyPressed(Key.Escape))
-		{
-			_paused = !_paused;
-			if (_paused)
-			{
-				_menu.Show();
-				Input.MouseMode = Input.MouseModeEnum.Confined;
-			}
-			else
-			{
-				_menu.Hide();
-				Input.MouseMode = Input.MouseModeEnum.Captured;
-			}
-		}
-
-		if (_paused)
-			return;
-
 		Vector3 velocity = Velocity;
 		if (!IsOnFloor())
 		{
@@ -116,7 +113,7 @@ public partial class Player : CharacterBody3D
 			query.CollisionMask = 2; // ONLY OUR ITEMS - YEAH!
 		else
 			query.CollisionMask = 2 | 4; // OUR ITEMS AND THE MINABLE COBBLESTONE
-
+		
 
 		Godot.Collections.Dictionary hitResult = spaceState.IntersectRay(query);
 
@@ -131,29 +128,28 @@ public partial class Player : CharacterBody3D
 		string name = parent.Name.ToString().ToLower();
 		GoalController.Item? item = GoalController.GetItemByModelName(name);
 		if (item == null) return;
-
+		
 		if (Input.IsActionJustReleased("pickup_item"))
 		{
 			_goalController.InteractWith(parent, (GoalController.Item)item);
 		}
-
-		_targetingLabel.Text = $"[{InputMap.GetActionDescription("pickup_item")}] {GoalController.LookAtDescription[(GoalController.Item)item]}";
+		
+		_targetingLabel.Text = $"[{InputMap.GetActionDescription("pickup_item")}] {Translations.LookAtDescription[(GoalController.Item)item]}";
 	}
 
 	public override void _Input(InputEvent motionUnknown)
 	{
-		if (_paused)
-			return;
+        if (_paused)
+            return;
 
 		if (motionUnknown is InputEventMouseMotion mouseMotion)
 		{
 			Vector2 mouseVelocity = mouseMotion.Relative;
 			Vector3 localDirection = new Vector3(-mouseVelocity.Y, -mouseVelocity.X, 0) / 4;
-			_camera.Rotation += localDirection / Math.Abs(100f - (float)(_menu.GetChild(0).GetChild(0).GetChild(0) as HSlider).Value);
+            _camera.Rotation += localDirection / Math.Abs(100f - (float)(_menu.GetChild(0).GetChild(0).GetChild(0) as HSlider).Value);
 
 			_camera.Rotation = new Vector3(Math.Clamp(_camera.Rotation.X, -1.0f, 1.0f), _camera.Rotation.Y, _camera.Rotation.Z);
-		}
-		else if (motionUnknown is InputEventJoypadMotion motion)
+		} else if (motionUnknown is InputEventJoypadMotion motion)
 		{
 			switch (motion.Axis)
 			{
@@ -166,4 +162,14 @@ public partial class Player : CharacterBody3D
 			}
 		}
 	}
+    
+    private void OnBoomAreaExplode()
+    {
+        _goalController.Progress();
+    }
+
+    public void EmitGoalChange(GoalController.MainGoal goal)
+    {
+        EmitSignalGoalChange(goal);
+    }
 }

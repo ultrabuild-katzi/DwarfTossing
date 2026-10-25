@@ -96,10 +96,12 @@ color = Color(1, 1, 1, 0)
 script = ExtResource("4_wu8e1")
 
 [node name="MainGoalLabel" type="Label" parent="CanvasLayer" unique_id=255734862]
+modulate = Color(1, 1, 1, 0)
 offset_right = 424.0
 offset_bottom = 49.0
 
 [node name="TemporaryMainGoalLabel" type="Label" parent="CanvasLayer" unique_id=1769273806]
+modulate = Color(1, 1, 1, 0)
 offset_left = 2.0
 offset_top = 66.0
 offset_right = 411.0
