@@ -15,6 +15,10 @@ run/main_scene="uid://b8w5r46ksjgj2"
 config/features=PackedStringArray("4.7", "C#", "Forward Plus")
 config/icon="res://brand/icon.svg"
 
+[audio]
+
+buses/default_bus_layout="uid://bxqic7j6661q"
+
 [display]
 
 window/stretch/mode="canvas_items"
@@ -65,6 +69,12 @@ pickup_item={
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":1,"pressure":0.0,"pressed":true,"script":null)
 ]
 }
+
+[layer_names]
+
+3d_physics/layer_1="player_world"
+3d_physics/layer_2="item"
+3d_physics/layer_3="pickaxe"
 
 [physics]
 

@@ -92,7 +92,9 @@ public partial class Player : CharacterBody3D
 
 		var query = PhysicsRayQueryParameters3D.Create(rayOrigin, rayEnd);
 		query.Exclude = [GetRid()];
-
+        query.CollideWithAreas = true;
+        query.CollideWithBodies = true;
+        query.CollisionMask = 2 | 4; // ONLY OUR ITEMS - YEAH!
 
 		Godot.Collections.Dictionary hitResult = spaceState.IntersectRay(query);
 
@@ -104,7 +106,7 @@ public partial class Player : CharacterBody3D
 		}
 
 		Node3D collider = (Node3D)hitResult["collider"];
-		string name = collider.GetParent().GetParent().Name.ToString();
+		string name = collider.GetParent().Name.ToString();
 
 		if (name.StartsWith("water"))
 		{
@@ -116,7 +118,7 @@ public partial class Player : CharacterBody3D
 		}
 
 
-		_targetingLabel.Text = $"Hit object: {collider.Name}";
+		_targetingLabel.Text = $"Hit object: {name}";
 
 	}
 
