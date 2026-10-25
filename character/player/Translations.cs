@@ -15,7 +15,7 @@ public static class Translations
         { MainGoal.MineOutOfCave1, "Use the pickaxe to mine the entrance" },
         { MainGoal.TemporaryGoalForce1, "Fulfill your desires" },
         { MainGoal.MineOutOfCave2, "Mine your way free through the entrance" },
-        { MainGoal.TemporaryGoalForce2, "Fulfill your desires" },
+        // { MainGoal.TemporaryGoalForce2, "Fulfill your desires" },
         { MainGoal.SeeLittleGuy, "Go back to the entrance" }
     };
 

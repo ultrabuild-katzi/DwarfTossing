@@ -10,14 +10,16 @@ public partial class BoomArea : Area3D
 	[Export] private GoalController.MainGoal _activeGoal;
 	[Signal] public delegate void ExplodeEventHandler();
 
+    private bool _isActive  = false;
+
 	public override void _Ready()
-	{
-		Monitoring = false;
-	}
+    {
+        BodyEntered += OnBodyEntered;
+    }
 
 	public void OnBodyEntered(Node3D body)
 	{
-		if (body is Player)
+		if (body is Player && _isActive)
 		{
 			DeleteBarrier();
 		}
@@ -25,7 +27,7 @@ public partial class BoomArea : Area3D
 
 	public void OnGoalChange(GoalController.MainGoal goal)
 	{
-		Monitoring = goal == _activeGoal;
+        _isActive =  goal == _activeGoal;
 	}
 
 	private void DeleteBarrier()

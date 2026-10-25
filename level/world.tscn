@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://bs2biq1dihv0k" path="res://level/cave_decorations.gltf" id="9_xd8br"]
 [ext_resource type="Script" uid="uid://cbhsnhimmdrcs" path="res://level/BoomArea.cs" id="12_1jcqx"]
 [ext_resource type="AudioStream" uid="uid://dksbo4rg05q2x" path="res://sfx/Landslide.mp3" id="13_kbmj6"]
+[ext_resource type="Texture2D" uid="uid://6mubcaqfatfv" path="res://character/player/Arrow.png" id="14_hqrif"]
 [ext_resource type="Texture2D" uid="uid://sb16ofmutq82" path="res://character/player/dwarf_pickaxe.png" id="14_y8oei"]
 [ext_resource type="Script" uid="uid://b31hehaf5d2m6" path="res://level/ExitWatcher.cs" id="15_5y8g2"]
 [ext_resource type="Texture2D" uid="uid://dkdrouy8s1sfi" path="res://character/dwarf/dwarf.png" id="16_ilqn7"]
@@ -46,7 +47,7 @@ billboard_keep_scale = true
 grow_amount = 0.1
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_71sqb"]
-size = Vector3(4.612446, 1, 6.2891903)
+size = Vector3(4.612446, 1, 17.89609)
 
 [sub_resource type="Curve" id="Curve_1jcqx"]
 _data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(1e-05, 1), 0.0, 0.0, 0, 0, Vector2(0.75, 0.9550562), 0.0, 0.0, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -87,11 +88,9 @@ material = SubResource("StandardMaterial3D_ni8nt")
 transparency = 1
 disable_fog = true
 albedo_color = Color(4.6817894, 4.6817894, 4.6817894, 1)
-albedo_texture = ExtResource("14_y8oei")
-metallic = 0.22
-metallic_specular = 0.63
+albedo_texture = ExtResource("14_hqrif")
 emission_enabled = true
-emission = Color(1, 1, 1, 1)
+emission = Color(1.5107718, 0.65678716, 0.1623749, 1)
 emission_energy_multiplier = 0.1
 texture_filter = 0
 texture_repeat = false
@@ -355,6 +354,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.617134, 3.8540468, 8.1615
 script = ExtResource("12_1jcqx")
 _fromIndex = 35
 _toIndex = 59
+_activeGoal = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BoomArea" unique_id=47330915]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6057968, 0, 1.6926155)
@@ -380,9 +380,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.63862944, 3.8540468, -67.8
 script = ExtResource("12_1jcqx")
 _fromIndex = 61
 _toIndex = 68
+_activeGoal = 1
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CompassBoomArea" unique_id=937492598]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7557697, 0, 1.1541061)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.2894628, 1.7557697, 0, -1.8770065)
 shape = SubResource("BoxShape3D_71sqb")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="CompassBoomArea" unique_id=2054750471]
@@ -400,22 +401,43 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.020389, 0.46107674, -5.2533
 stream = ExtResource("13_kbmj6")
 volume_db = -13.489
 
-[node name="PickaxeParent" type="StaticBody3D" parent="." unique_id=778764044]
+[node name="PickaxeMaker" type="Node3D" parent="." unique_id=971372627]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.765476, 3.9967608, 80.041405)
+
+[node name="PickaxeParent" type="StaticBody3D" parent="PickaxeMaker" unique_id=778764044]
 collision_layer = 2
 collision_mask = 0
 
-[node name="PickaxeCollider" type="CollisionShape3D" parent="PickaxeParent" unique_id=15764831]
+[node name="PickaxeCollider" type="CollisionShape3D" parent="PickaxeMaker/PickaxeParent" unique_id=15764831]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.023839, -0.2772956, 0.10897064)
 shape = SubResource("BoxShape3D_vfs2c")
 
-[node name="Pickaxe" type="Sprite3D" parent="PickaxeParent/PickaxeCollider" unique_id=1341256956]
+[node name="Pickaxe" type="Sprite3D" parent="PickaxeMaker/PickaxeParent/PickaxeCollider" unique_id=1341256956]
 transform = Transform3D(3.1789198, 0, 0, 0, 3.1789198, 0, 0, 0, 3.1789198, -0.0073251724, -0.07663107, -0.020698547)
 material_override = SubResource("StandardMaterial3D_y8oei")
 pixel_size = 0.04
 billboard = 1
 texture_filter = 0
 texture = ExtResource("14_y8oei")
+
+[node name="CompassMaker" type="Node3D" parent="." unique_id=349699991]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.0012622, 3.9967608, -74.35052)
+
+[node name="CompassParent" type="StaticBody3D" parent="CompassMaker" unique_id=425918874]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CompassCollider" type="CollisionShape3D" parent="CompassMaker/CompassParent" unique_id=759543734]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.023839, -0.2772956, 0.10897064)
+shape = SubResource("BoxShape3D_vfs2c")
+
+[node name="Compass" type="Sprite3D" parent="CompassMaker/CompassParent/CompassCollider" unique_id=609212908]
+transform = Transform3D(3.1789198, 0, 0, 0, 3.1789198, 0, 0, 0, 3.1789198, -0.0073251724, -0.07663107, -0.020698547)
+material_override = SubResource("StandardMaterial3D_y8oei")
+pixel_size = 0.04
+billboard = 1
+texture_filter = 0
+texture = ExtResource("14_hqrif")
 
 [node name="CaveLight" type="OmniLight3D" parent="." unique_id=1791825102]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.60704, 4.284746, 71.461914)
@@ -437,8 +459,10 @@ transform = Transform3D(0.05624646, 0, 0, 0, 6.1959906, 0, 0, 0, 6.1959906, -37.
 mesh = SubResource("BoxMesh_71sqb")
 material = SubResource("StandardMaterial3D_vfs2c")
 
-[node name="ExitWatcher" type="Node3D" parent="." unique_id=1117051392]
+[node name="ExitWatcher" type="Node3D" parent="." unique_id=1117051392 node_paths=PackedStringArray("_caveDecorations", "_exitDecoration")]
 script = ExtResource("15_5y8g2")
+_caveDecorations = NodePath("../cave_decorations")
+_exitDecoration = NodePath("../Exit")
 
 [node name="Dwarf" type="Sprite3D" parent="." unique_id=1470514822]
 transform = Transform3D(2.0003808, 0, 1.421356e-14, 0, 2.0003808, 0, -1.421356e-14, 0, 2.0003808, -29.318165, 3.6440449, -6.573729)
@@ -451,4 +475,18 @@ texture = ExtResource("16_ilqn7")
 transform = Transform3D(0.51976573, 0, 0, 0, 0.51976573, 0, 0, 0, 0.51976573, -3.8136225, 0.59950006, 0)
 light_energy = 16.0
 
+[node name="Label3D" type="Label3D" parent="Dwarf" unique_id=847967689]
+transform = Transform3D(0.9999999, 0, 0, 0, 0.9999999, 0, 0, 0, 0.9999999, 0, 0.21801889, 0)
+billboard = 1
+texture_filter = 0
+text = "I'm Just A Little Guy!"
+
+[connection signal="GoalChange" from="player" to="BoomArea" method="OnGoalChange"]
+[connection signal="GoalChange" from="player" to="CompassBoomArea" method="OnGoalChange"]
+[connection signal="GoalChange" from="player" to="ExitWatcher" method="OnGoalChange"]
+[connection signal="Explode" from="BoomArea" to="player" method="OnBoomAreaExplode"]
+[connection signal="body_entered" from="BoomArea" to="BoomArea" method="OnBodyEntered"]
+[connection signal="Explode" from="CompassBoomArea" to="player" method="OnBoomAreaExplode"]
+[connection signal="body_entered" from="CompassBoomArea" to="CompassBoomArea" method="OnBodyEntered"]
 [connection signal="Exit" from="ExitWatcher" to="player" method="OnExit"]
+[connection signal="Restored" from="ExitWatcher" to="player" method="OnRestored"]

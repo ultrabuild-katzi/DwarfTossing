@@ -22,6 +22,8 @@ public partial class Player : CharacterBody3D
     [Export] private CanvasLayer _menu;
     private bool _paused = false;
 
+    private double _gameQuitTimer;
+
     public override void _Ready()
     {
         Input.MouseMode = Input.MouseModeEnum.Captured;
@@ -31,6 +33,14 @@ public partial class Player : CharacterBody3D
     {
         if (_ending)
         {
+            _camera.LookAt(_dwarf.GlobalPosition);
+            _dwarf.Show();
+            _gameQuitTimer += delta;
+            if (_gameQuitTimer >= 5)
+            {
+                GetTree().Quit();
+            }
+            return;
         }
 
         if (Input.IsPhysicalKeyPressed(Key.Escape))
@@ -123,8 +133,7 @@ public partial class Player : CharacterBody3D
         if (!_goalController.HasPickaxeInCurrentState())
             query.CollisionMask = 2; // ONLY OUR ITEMS - YEAH!
         else
-            query.CollisionMask = 2 | 4 | 1; // OUR ITEMS AND THE MINABLE COBBLESTONE
-
+            query.CollisionMask = 2 | 4; // OUR ITEMS AND THE MINABLE COBBLESTONE
 
         Godot.Collections.Dictionary hitResult = spaceState.IntersectRay(query);
 
@@ -187,7 +196,13 @@ public partial class Player : CharacterBody3D
 
     private void OnExit()
     {
-        if (_ending)
+        if (_goalController._mainGoal == GoalController.MainGoal.MineOutOfCave1)
+        {
+            _goalController.Progress();
+            return;
+        }
+        
+        if(_goalController._mainGoal != GoalController.MainGoal.MineOutOfCave2)
             return;
 
         _paused = true;
@@ -195,5 +210,11 @@ public partial class Player : CharacterBody3D
         _goalController.Progress();
 
         _dwarf.Visible = true;
+    }
+
+    private void OnRestored()
+    {
+        if(_goalController._mainGoal == GoalController.MainGoal.RestoreCave)
+            _goalController.Progress();
     }
 }

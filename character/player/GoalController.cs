@@ -7,7 +7,7 @@ namespace DwarfTossing.Character.Player;
 
 public partial class GoalController : Node
 {
-	private MainGoal _mainGoal = MainGoal.MineOutOfCave1;
+	public MainGoal _mainGoal = MainGoal.Init;
 	private TemporaryGoal? _temporaryGoal;
 	private double _temporaryGoalTimeoutSeconds;
 	private double _mainGoalVisibleForSeconds;
@@ -38,7 +38,7 @@ public partial class GoalController : Node
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if (_sanityController._sanity > 0 && _temporaryGoal == null && _temporaryGoalTimeoutSeconds <= 0)
+		if (_temporaryGoal == null && (_sanityController._sanity > 0 && _temporaryGoalTimeoutSeconds <= 0 || _mainGoal == MainGoal.TemporaryGoalForce1))
 		{
 			_temporaryGoal = _random.GetItems(Enum.GetValues<TemporaryGoal>(), 1)[0];
 		}
@@ -48,7 +48,7 @@ public partial class GoalController : Node
 
 		_mainGoalVisibleForSeconds += delta;
 		_mainGoalLabel.Text = Translations.GoalDescriptions[_hintSeconds < 0 ? _mainGoal - 1 : _mainGoal];
-		InterpolateAlpha(_mainGoalLabel, _mainGoalVisibleForSeconds > _hintSeconds ? 1 : 0, delta * 2);
+		InterpolateAlpha(_mainGoalLabel, _mainGoalVisibleForSeconds > _hintSeconds || _mainGoal == MainGoal.TemporaryGoalForce1 ? 1 : 0, delta * 2);
 
 		if (_temporaryGoal != null)
 			_temporaryGoalLabel.Text = Translations.TemporaryGoalDescriptions[(TemporaryGoal)_temporaryGoal];
@@ -69,6 +69,7 @@ public partial class GoalController : Node
 
 		GetNode<Sprite3D>("../Camera3D/Pickaxe").Visible = HasPickaxeInCurrentState();
 		GetNode<Sprite3D>("../Camera3D/Compass").Visible = _mainGoal == MainGoal.LookAfterCompass;
+
 		SanityController.Activated = _mainGoal != MainGoal.SeeLittleGuy;
 		_player.EmitGoalChange(_mainGoal);
 	}
@@ -105,9 +106,20 @@ public partial class GoalController : Node
 
 			case Item.Cobblestone:
 				if (HasPickaxeInCurrentState())
-				{
-					itemInstance.GetParent().RemoveChild(itemInstance);
-				}
+                {
+                    ((Node3D)itemInstance).Visible = false;
+
+                    if (itemInstance.Name.ToString().Contains("031") || itemInstance.Name.ToString().Contains("032") ||
+                        itemInstance.Name.ToString().Contains("026") || itemInstance.Name.ToString().Contains("022") ||
+                        itemInstance.Name.ToString().Contains("019") ||
+                        itemInstance.Name.ToString().Contains("033") || itemInstance.Name.ToString().Contains("034") ||
+                        itemInstance.Name.ToString().Contains("025") || itemInstance.Name.ToString().Contains("021") ||
+                        itemInstance.Name.ToString().Contains("029") || itemInstance.Name.ToString().Contains("018")
+                       )
+                    {
+                        itemInstance.GetParent().RemoveChild(itemInstance);
+                    }
+                }
 
 				break;
 			default:
@@ -117,7 +129,7 @@ public partial class GoalController : Node
 
 	public bool HasPickaxeInCurrentState()
 	{
-		return _mainGoal >= MainGoal.MineOutOfCave1;
+		return _mainGoal is MainGoal.MineOutOfCave1 or MainGoal.MineOutOfCave2;
 	}
 
 	private void Consume(Item item)
@@ -133,6 +145,10 @@ public partial class GoalController : Node
 		{
 			_sanityController._sanity = Math.Max(_sanityController._sanity - 1.5, 0);
 			_temporaryGoal = null;
+            if (_mainGoal == MainGoal.TemporaryGoalForce1)
+            {
+                Progress();
+            }
 		}
 
 		_temporaryGoalTimeoutSeconds = 20;
@@ -158,8 +174,8 @@ public partial class GoalController : Node
 		FindVillage,
 		MineOutOfCave1,
 		TemporaryGoalForce1,
+		RestoreCave,
 		MineOutOfCave2,
-		TemporaryGoalForce2,
 		SeeLittleGuy
 	}
 
