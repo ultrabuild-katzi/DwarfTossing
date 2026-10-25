@@ -125,6 +125,17 @@ public partial class Player : CharacterBody3D
 			_camera.Rotation += localDirection / 50;
 
 			_camera.Rotation = new Vector3(Math.Clamp(_camera.Rotation.X, -1.0f, 1.0f), _camera.Rotation.Y, _camera.Rotation.Z);
-		}
+		} else if (motionUnknown is InputEventJoypadMotion motion)
+        {
+            switch (motion.Axis)
+            {
+                case JoyAxis.RightX:
+                    _camera.Rotation += new Vector3(motion.AxisValue, 0, 0);
+                    break;
+                case JoyAxis.RightY:
+                    _camera.Rotation += new Vector3(0, motion.AxisValue, 0);
+                    break;
+            }
+        }
 	}
 }
