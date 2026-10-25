@@ -1,3 +1,5 @@
+#if TOOLS
+
 using Godot;
 
 namespace DwarfTossing.Level;
@@ -46,3 +48,4 @@ public partial class CaveDecorationsPostImport : EditorScenePostImport
     }
     
 }
+#endif
