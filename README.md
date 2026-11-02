@@ -9,3 +9,6 @@ _Actual Game (spoilers)_: You go on further into the cave, and you quickly make 
 _The decision (A)_: You decide to give it back, the dwarf helps you out safely and you live your life happyily, for now at least. 
 
 _The decision (B)_: You decide against giving it back, the dwarf looks at you, cries and the cave collapses, both of you, remain forgotten.
+
+## Downloads are on Itch
+https://aaronolw.itch.io/dwarf-tossing
