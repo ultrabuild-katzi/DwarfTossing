@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dr8x8r3sschit"]
+
+[node name="loading" type="Node2D" unique_id=1434302271]
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=1295634940]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 185.0
+offset_top = 527.0
+offset_right = 975.5
+offset_bottom = 576.5
+grow_horizontal = 2
+grow_vertical = 2

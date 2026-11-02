@@ -7,7 +7,7 @@
         <EnableDynamicLoading>true</EnableDynamicLoading>
         <InvariantGlobalization>true</InvariantGlobalization>
         <SelfContained>true</SelfContained>
-        <PublishAOT>true</PublishAOT>
+        <PublishAOT>false</PublishAOT>
 
         <RuntimeIdentifiers>linux-x64;win-x64</RuntimeIdentifiers>
 
@@ -19,6 +19,7 @@
         <EventSourceSupport>false</EventSourceSupport>
         <EnableUnsafeBinaryFormatterSerialization>false</EnableUnsafeBinaryFormatterSerialization>
         <HttpActivityPropagationSupport>false</HttpActivityPropagationSupport>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
     <ItemGroup>
         <TrimmerRootAssembly Include="GodotSharp"/>
@@ -26,5 +27,6 @@
     </ItemGroup>
     <ItemGroup>
       <Content Include="sfx\*.mp3" />
+      <Content Include="future-plans.txt" />
     </ItemGroup>
 </Project>

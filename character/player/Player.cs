@@ -1,4 +1,7 @@
+using DwarfTossing.Item;
+using DwarfTossing.Level.Cave;
 using Godot;
+using Godot.Collections;
 using System;
 
 namespace DwarfTossing.Character.Player;
@@ -11,16 +14,14 @@ public partial class Player : CharacterBody3D
     [Export] private AudioStreamPlayer3D _footstepsStream;
     [Export] private Label _targetingLabel;
     [Export] private GoalController _goalController;
-    [Signal] public delegate void GoalChangeEventHandler(GoalController.MainGoal goal);
-    [Export] private Sprite3D _dwarf;
+    [Export] private PlayerGoalController _playerGoalController;
 
+    private readonly GameSettings _gameSettings = new(1.0f, 1.0f, 1.0f);
+    
     private float _cameraBobbing = 10;
     private double _timeSinceStartedMoving;
 
-    private bool _ending = false;
-
-    [Export] private CanvasLayer _menu;
-    private bool _paused = false;
+    // [Export] private CanvasLayer _menu;
 
     private double _gameQuitTimer;
 
@@ -31,35 +32,32 @@ public partial class Player : CharacterBody3D
 
     public override void _PhysicsProcess(double delta)
     {
-        if (_ending)
+        // if (_ending)
+        // {
+        //     _camera.LookAt(_dwarf.GlobalPosition);
+        //     _dwarf.Show();
+        //     _gameQuitTimer += delta;
+        //     if (_gameQuitTimer >= 5)
+        //     {
+        //         GetTree().Quit();
+        //     }
+        //     return;
+        // }
+        //
+        if (Input.IsActionJustReleased("pause_game"))
         {
-            _camera.LookAt(_dwarf.GlobalPosition);
-            _dwarf.Show();
-            _gameQuitTimer += delta;
-            if (_gameQuitTimer >= 5)
-            {
-                GetTree().Quit();
-            }
-            return;
+            // _paused = !_paused;
+            // if (_paused)
+            // {
+            //     _menu.Show();
+            //     Input.MouseMode = Input.MouseModeEnum.Confined;
+            // }
+            // else
+            // {
+            //     _menu.Hide();
+            //     Input.MouseMode = Input.MouseModeEnum.Captured;
+            // }
         }
-
-        if (Input.IsPhysicalKeyPressed(Key.Escape))
-        {
-            _paused = !_paused;
-            if (_paused)
-            {
-                _menu.Show();
-                Input.MouseMode = Input.MouseModeEnum.Confined;
-            }
-            else
-            {
-                _menu.Hide();
-                Input.MouseMode = Input.MouseModeEnum.Captured;
-            }
-        }
-
-        if (_paused)
-            return;
 
         HandleMovement(delta);
         HandleInteractions(delta);
@@ -67,10 +65,6 @@ public partial class Player : CharacterBody3D
 
     private void HandleMovement(double delta)
     {
-
-        if (_paused)
-            return;
-
         Vector3 velocity = Velocity;
         if (!IsOnFloor())
         {
@@ -130,12 +124,12 @@ public partial class Player : CharacterBody3D
         var query = PhysicsRayQueryParameters3D.Create(rayOrigin, rayEnd);
         query.CollideWithAreas = true;
         query.CollideWithBodies = true;
-        if (!_goalController.HasPickaxeInCurrentState())
+        if (GoalController.HasPickaxeAtGoal(_goalController.MainGoal))
             query.CollisionMask = 2; // ONLY OUR ITEMS - YEAH!
         else
             query.CollisionMask = 2 | 4; // OUR ITEMS AND THE MINABLE COBBLESTONE
 
-        Godot.Collections.Dictionary hitResult = spaceState.IntersectRay(query);
+        Dictionary hitResult = spaceState.IntersectRay(query);
 
         if (hitResult.Count <= 0)
         {
@@ -146,28 +140,39 @@ public partial class Player : CharacterBody3D
         Node3D collider = (Node3D)hitResult["collider"];
         Node parent = collider.GetParent();
         string name = parent.Name.ToString().ToLower();
-        GoalController.Item? item = GoalController.GetItemByModelName(name);
+        Items? item = ItemManager.GetItemByModelName(name);
         if (item == null) return;
 
+        // if (Input.IsMouseButtonPressed(MouseButton.Left))
+        // {
+        //     if (collider is RigidBody3D rigidBody3D)
+        //     {
+        //         Vector3 vector3 = (GlobalPosition - rigidBody3D.GlobalPosition).Normalized() * 1.5f;
+        //         vector3.Y = 3;
+        //         rigidBody3D.LinearVelocity = vector3;
+        //     }
+        // }
         if (Input.IsActionJustReleased("pickup_item"))
         {
-            _goalController.InteractWith(parent, (GoalController.Item)item);
+            _playerGoalController.InteractWith(parent, (Items)item);
         }
 
-        _targetingLabel.Text = $"[{InputMap.GetActionDescription("pickup_item")}] {Translations.LookAtDescription[(GoalController.Item)item]}";
+        _targetingLabel.Text = $"[{InputMap.GetActionDescription("pickup_item")}] {Translations.LookAtDescription[(Items)item]}";
+    }
+
+    private void OnMainGoalChange(MainGoal mainGoal, MainGoal previousGoal)
+    {
+        Console.WriteLine("MAIN GOAL CHANGE " + mainGoal + " MAIN " + previousGoal);
+        _playerGoalController.OnMainGoalChange(mainGoal);
     }
 
     public override void _Input(InputEvent motionUnknown)
     {
-        if (_paused)
-            return;
-
         if (motionUnknown is InputEventMouseMotion mouseMotion)
         {
             Vector2 mouseVelocity = mouseMotion.Relative;
             Vector3 localDirection = new Vector3(-mouseVelocity.Y, -mouseVelocity.X, 0) / 4;
-            _camera.Rotation += localDirection / Math.Abs(100f - (float)(_menu.GetChild(0).GetChild(0).GetChild(0) as HSlider).Value);
-
+            _camera.Rotation += localDirection / Math.Abs(100f - _gameSettings.MouseSensitivity);
             _camera.Rotation = new Vector3(Math.Clamp(_camera.Rotation.X, -1.0f, 1.0f), _camera.Rotation.Y, _camera.Rotation.Z);
         }
         else if (motionUnknown is InputEventJoypadMotion motion)
@@ -182,39 +187,5 @@ public partial class Player : CharacterBody3D
                     break;
             }
         }
-    }
-
-    private void OnBoomAreaExplode()
-    {
-        _goalController.Progress();
-    }
-
-    public void EmitGoalChange(GoalController.MainGoal goal)
-    {
-        EmitSignalGoalChange(goal);
-    }
-
-    private void OnExit()
-    {
-        if (_goalController._mainGoal == GoalController.MainGoal.MineOutOfCave1)
-        {
-            _goalController.Progress();
-            return;
-        }
-        
-        if(_goalController._mainGoal != GoalController.MainGoal.MineOutOfCave2)
-            return;
-
-        _paused = true;
-        _ending = true;
-        _goalController.Progress();
-
-        _dwarf.Visible = true;
-    }
-
-    private void OnRestored()
-    {
-        if(_goalController._mainGoal == GoalController.MainGoal.RestoreCave)
-            _goalController.Progress();
     }
 }

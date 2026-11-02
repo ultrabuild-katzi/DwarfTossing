@@ -1,0 +1,13 @@
+Restructure the cave to make the path more obvious: DONE
+- Completely block off the other side at first, make a trail out of glow lichen
+- Add a creature the one side of the map
+- maybe different y levels/stages
+
+Items: map, pickaxe in 3d models DONE
+Scare the players (Fulfill the horror aspect) SEMI-DONE
+Multiplayer - Voice Chat
+Intro Cutscene
+Mining Animation, Particles, Sounds, not instant, Screenshake
+Disable Freeze Frame - make the ending more cinematic
+
+Another level?

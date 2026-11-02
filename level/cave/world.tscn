@@ -1,0 +1,441 @@
+[gd_scene format=3 uid="uid://b8w5r46ksjgj2"]
+
+[ext_resource type="Script" uid="uid://rytpwqvn7sad" path="res://sfx/AmbientController.cs" id="2_nadbi"]
+[ext_resource type="PackedScene" uid="uid://dw1022tvfc2j8" path="res://character/player/player.tscn" id="2_tjjer"]
+[ext_resource type="AudioStream" uid="uid://dpsvm2qdhedpi" path="res://sfx/idk.mp3" id="3_hx6qw"]
+[ext_resource type="Texture2D" uid="uid://ecjus6wia7ua" path="res://character/dwarf/dwarfeyes.png" id="3_tjjer"]
+[ext_resource type="AudioStream" uid="uid://be2qx072xs5mb" path="res://sfx/Ambient.mp3" id="4_gsqr6"]
+[ext_resource type="AudioStream" uid="uid://cu7fxtnp2i7wb" path="res://sfx/water_drop.mp3" id="4_riu67"]
+[ext_resource type="AudioStream" uid="uid://byqadbneu7328" path="res://sfx/Horror.mp3" id="6_gsqr6"]
+[ext_resource type="AudioStream" uid="uid://bj5ynxcc7mmb8" path="res://sfx/aaaaaaaaa.mp3" id="7_drvcl"]
+[ext_resource type="AudioStream" uid="uid://e2t7dk4o1he0" path="res://sfx/footsteps_on_stone.mp3" id="8_njrq0"]
+[ext_resource type="Script" uid="uid://b7xg1pxgok8pp" path="res://item/Item.cs" id="12_4cl6r"]
+[ext_resource type="PackedScene" uid="uid://hplxtrri571b" path="res://item/pickaxe/pickaxe.gltf" id="13_4cl6r"]
+[ext_resource type="AudioStream" uid="uid://dksbo4rg05q2x" path="res://sfx/Landslide.mp3" id="13_kbmj6"]
+[ext_resource type="PackedScene" uid="uid://khdctiwsc2fg" path="res://item/map/map.gltf" id="15_fw41u"]
+[ext_resource type="Texture2D" uid="uid://dkdrouy8s1sfi" path="res://character/dwarf/dwarf.png" id="16_ilqn7"]
+[ext_resource type="PackedScene" uid="uid://cnxfe3lfrqr4j" path="res://level/cave/level.gltf" id="17_wt5fk"]
+[ext_resource type="Script" uid="uid://bduaa377sp6s" path="res://level/cave/GoalController.cs" id="18_ck5x8"]
+[ext_resource type="Script" uid="uid://c1x36wdfgq8xc" path="res://level/cave/Level.cs" id="18_fw41u"]
+
+[sub_resource type="Environment" id="Environment_8eijk"]
+ambient_light_energy = 0.0
+ssao_enabled = true
+fog_enabled = true
+fog_light_color = Color(0.07118326, 0.081665836, 0.09797717, 1)
+fog_light_energy = 0.16
+fog_density = 0.4125
+adjustment_enabled = true
+adjustment_contrast = 1.055
+adjustment_saturation = 0.59
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hx6qw"]
+transparency = 1
+disable_fog = true
+albedo_color = Color(0.75819176, 0.7581918, 0.75819165, 1)
+albedo_texture = ExtResource("3_tjjer")
+metallic = 0.37
+metallic_specular = 0.15
+emission_enabled = true
+emission = Color(0.21114922, 0.0016928788, 0.035903916, 1)
+emission_energy_multiplier = 2.93
+backlight = Color(1, 1, 1, 1)
+texture_filter = 0
+texture_repeat = false
+billboard_mode = 1
+billboard_keep_scale = true
+grow_amount = 0.1
+
+[sub_resource type="Curve" id="Curve_1jcqx"]
+_data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(1e-05, 1), 0.0, 0.0, 0, 0, Vector2(0.75, 0.9550562), 0.0, 0.0, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_kbmj6"]
+curve = SubResource("Curve_1jcqx")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_71sqb"]
+lifetime_randomness = 0.5
+spread = 180.0
+initial_velocity_min = -1.0
+initial_velocity_max = 5.0
+gravity = Vector3(0, 0, 0)
+use_scale_3d = true
+scale_3d_min = Vector3(0.8, 0.8, 0.8)
+scale_3d_max = Vector3(0.8, 0.8, 0.8)
+scale_min = 0.0
+scale_max = 0.0
+scale_curve = SubResource("CurveTexture_kbmj6")
+color = Color(0.37185857, 0.22664621, 0.00027299763, 1)
+hue_variation_min = -1.0
+hue_variation_max = 0.99999994
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ni8nt"]
+shading_mode = 0
+disable_ambient_light = true
+disable_fog = true
+disable_specular_occlusion = true
+albedo_color = Color(0.23392546, 0.23392546, 0.2339254, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_vfs2c"]
+material = SubResource("StandardMaterial3D_ni8nt")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vfs2c"]
+size = Vector3(1, 1.1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_71sqb"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vfs2c"]
+shading_mode = 0
+albedo_color = Color(18.892157, 18.892157, 18.892157, 1)
+disable_receive_shadows = true
+
+[node name="World" type="Node3D" unique_id=1945656188]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=828307134]
+environment = SubResource("Environment_8eijk")
+
+[node name="player" parent="." unique_id=1455122187 node_paths=PackedStringArray("_footstepsStream", "_goalController") instance=ExtResource("2_tjjer")]
+transform = Transform3D(-0.9999999, 0, 8.742276e-08, 0, 1, 0, -8.742276e-08, 0, -0.9999999, 36.651077, 19, 97.42627)
+FollowSpeed = 0.3
+_footstepsStream = NodePath("FootstepsPlayer")
+_goalController = NodePath("../GoalController")
+
+[node name="AmbientPlayer" type="AudioStreamPlayer3D" parent="player" unique_id=1655936800]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+volume_db = -38.383
+unit_size = 21.2
+script = ExtResource("2_nadbi")
+AudioStreams = Array[AudioStream]([ExtResource("3_hx6qw"), ExtResource("4_gsqr6"), ExtResource("4_riu67"), ExtResource("6_gsqr6"), ExtResource("7_drvcl")])
+
+[node name="FootstepsPlayer" type="AudioStreamPlayer3D" parent="player" unique_id=949927044]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.32335424, 0)
+stream = ExtResource("8_njrq0")
+volume_db = -38.878
+unit_size = 16.54
+
+[node name="Eyes" type="Node" parent="." unique_id=1170698013]
+
+[node name="eyes" type="Sprite3D" parent="Eyes" unique_id=1591119359]
+transform = Transform3D(2.5326626, 0, 0, 0, 2.5326626, 0, 0, 0, 2.5326626, -13.036033, 4.770056, -11.168626)
+layers = 2
+material_override = SubResource("StandardMaterial3D_hx6qw")
+cast_shadow = 0
+ignore_occlusion_culling = true
+gi_lightmap_texel_scale = 3.545
+visibility_range_begin = 8.0
+visibility_range_begin_margin = 1.0
+visibility_range_end = 13.0
+visibility_range_end_margin = 1.0
+visibility_range_fade_mode = 1
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("3_tjjer")
+
+[node name="eyes9" type="Sprite3D" parent="Eyes" unique_id=1572922883]
+transform = Transform3D(2.5326626, 0, 0, 0, 2.5326626, 0, 0, 0, 2.5326626, -14.81009, 4.770056, 8.276639)
+layers = 2
+material_override = SubResource("StandardMaterial3D_hx6qw")
+cast_shadow = 0
+ignore_occlusion_culling = true
+gi_lightmap_texel_scale = 3.545
+visibility_range_begin = 8.0
+visibility_range_begin_margin = 1.0
+visibility_range_end = 13.0
+visibility_range_end_margin = 1.0
+visibility_range_fade_mode = 1
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("3_tjjer")
+
+[node name="eyes13" type="Sprite3D" parent="Eyes" unique_id=1425077255]
+transform = Transform3D(2.5326626, 0, 0, 0, 2.5326626, 0, 0, 0, 2.5326626, -37.17503, 4.117792, 37.114086)
+layers = 2
+material_override = SubResource("StandardMaterial3D_hx6qw")
+cast_shadow = 0
+ignore_occlusion_culling = true
+gi_lightmap_texel_scale = 3.545
+visibility_range_begin = 8.0
+visibility_range_begin_margin = 1.0
+visibility_range_end = 13.0
+visibility_range_end_margin = 1.0
+visibility_range_fade_mode = 1
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("3_tjjer")
+
+[node name="eyes11" type="Sprite3D" parent="Eyes" unique_id=2009136973]
+transform = Transform3D(2.5326626, 0, 0, 0, 2.5326626, 0, 0, 0, 2.5326626, -13.28946, 4.45817, 43.71154)
+layers = 2
+material_override = SubResource("StandardMaterial3D_hx6qw")
+cast_shadow = 0
+ignore_occlusion_culling = true
+gi_lightmap_texel_scale = 3.545
+visibility_range_begin = 8.0
+visibility_range_begin_margin = 1.0
+visibility_range_end = 13.0
+visibility_range_end_margin = 1.0
+visibility_range_fade_mode = 1
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("3_tjjer")
+
+[node name="eyes12" type="Sprite3D" parent="Eyes" unique_id=768355289]
+transform = Transform3D(2.5326626, 0, 0, 0, 2.5326626, 0, 0, 0, 2.5326626, -36.532547, 4.45817, 76.684044)
+layers = 2
+material_override = SubResource("StandardMaterial3D_hx6qw")
+cast_shadow = 0
+ignore_occlusion_culling = true
+gi_lightmap_texel_scale = 3.545
+visibility_range_begin = 8.0
+visibility_range_begin_margin = 1.0
+visibility_range_end = 13.0
+visibility_range_end_margin = 1.0
+visibility_range_fade_mode = 1
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("3_tjjer")
+
+[node name="eyes3" type="Sprite3D" parent="Eyes" unique_id=989229223]
+transform = Transform3D(2.5326626, 0, 0, 0, 2.5326626, 0, 0, 0, 2.5326626, 18.724064, 4.032972, -11.325221)
+layers = 2
+material_override = SubResource("StandardMaterial3D_hx6qw")
+cast_shadow = 0
+ignore_occlusion_culling = true
+gi_lightmap_texel_scale = 3.545
+visibility_range_begin = 8.0
+visibility_range_begin_margin = 1.0
+visibility_range_end = 13.0
+visibility_range_end_margin = 1.0
+visibility_range_fade_mode = 1
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("3_tjjer")
+
+[node name="eyes4" type="Sprite3D" parent="Eyes" unique_id=12230447]
+transform = Transform3D(2.5326626, 0, 0, 0, 2.5326626, 0, 0, 0, 2.5326626, 39.283913, 3.2899814, -11.646698)
+layers = 2
+material_override = SubResource("StandardMaterial3D_hx6qw")
+cast_shadow = 0
+ignore_occlusion_culling = true
+gi_lightmap_texel_scale = 3.545
+visibility_range_begin = 8.0
+visibility_range_begin_margin = 1.0
+visibility_range_end = 13.0
+visibility_range_end_margin = 1.0
+visibility_range_fade_mode = 1
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("3_tjjer")
+
+[node name="eyes8" type="Sprite3D" parent="Eyes" unique_id=481299504]
+transform = Transform3D(2.5326626, 0, 0, 0, 2.5326626, 0, 0, 0, 2.5326626, 45.838497, 5.2501807, 6.2660675)
+layers = 2
+material_override = SubResource("StandardMaterial3D_hx6qw")
+cast_shadow = 0
+ignore_occlusion_culling = true
+gi_lightmap_texel_scale = 3.545
+visibility_range_begin = 8.0
+visibility_range_begin_margin = 1.0
+visibility_range_end = 13.0
+visibility_range_end_margin = 1.0
+visibility_range_fade_mode = 1
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("3_tjjer")
+
+[node name="eyes5" type="Sprite3D" parent="Eyes" unique_id=2002769980]
+transform = Transform3D(2.5326626, 0, 0, 0, 2.5326626, 0, 0, 0, 2.5326626, 39.875584, 4.0721354, -34.543716)
+layers = 2
+material_override = SubResource("StandardMaterial3D_hx6qw")
+cast_shadow = 0
+ignore_occlusion_culling = true
+gi_lightmap_texel_scale = 3.545
+visibility_range_begin = 8.0
+visibility_range_begin_margin = 1.0
+visibility_range_end = 13.0
+visibility_range_end_margin = 1.0
+visibility_range_fade_mode = 1
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("3_tjjer")
+
+[node name="eyes6" type="Sprite3D" parent="Eyes" unique_id=2047265716]
+transform = Transform3D(2.5326626, 0, 0, 0, 2.5326626, 0, 0, 0, 2.5326626, 18.680866, 4.1883955, -34.413895)
+layers = 2
+material_override = SubResource("StandardMaterial3D_hx6qw")
+cast_shadow = 0
+ignore_occlusion_culling = true
+gi_lightmap_texel_scale = 3.545
+visibility_range_begin = 8.0
+visibility_range_begin_margin = 1.0
+visibility_range_end = 13.0
+visibility_range_end_margin = 1.0
+visibility_range_fade_mode = 1
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("3_tjjer")
+
+[node name="eyes10" type="Sprite3D" parent="Eyes" unique_id=718465583]
+transform = Transform3D(2.5326626, 0, 0, 0, 2.5326626, 0, 0, 0, 2.5326626, -0.77472425, 4.1883955, -67.52271)
+layers = 2
+material_override = SubResource("StandardMaterial3D_hx6qw")
+cast_shadow = 0
+ignore_occlusion_culling = true
+gi_lightmap_texel_scale = 3.545
+visibility_range_begin = 8.0
+visibility_range_begin_margin = 1.0
+visibility_range_end = 13.0
+visibility_range_end_margin = 1.0
+visibility_range_fade_mode = 1
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("3_tjjer")
+
+[node name="eyes7" type="Sprite3D" parent="Eyes" unique_id=1892827448]
+transform = Transform3D(2.5326626, 0, 0, 0, 2.5326626, 0, 0, 0, 2.5326626, 24.863142, 4.2933726, -63.750134)
+layers = 2
+material_override = SubResource("StandardMaterial3D_hx6qw")
+cast_shadow = 0
+ignore_occlusion_culling = true
+gi_lightmap_texel_scale = 3.545
+visibility_range_begin = 8.0
+visibility_range_begin_margin = 1.0
+visibility_range_end = 13.0
+visibility_range_end_margin = 1.0
+visibility_range_fade_mode = 1
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("3_tjjer")
+
+[node name="StoneBoom" type="Node3D" parent="." unique_id=1411987294]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 19, 99)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="StoneBoom" unique_id=2054750471]
+transform = Transform3D(0.99995583, -0.009401321, 0, 0.009401321, 0.99995583, 0, 0, 0, 1, -4, 0, 0)
+emitting = false
+amount = 26
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_71sqb")
+draw_pass_1 = SubResource("SphereMesh_vfs2c")
+
+[node name="BoomPlayer" type="AudioStreamPlayer3D" parent="StoneBoom" unique_id=337210179]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
+stream = ExtResource("13_kbmj6")
+volume_db = -13.489
+
+[node name="PickaxeItem" type="Node3D" parent="." unique_id=971372627]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72.86547, 18.596762, 180.54138)
+script = ExtResource("12_4cl6r")
+_activeAtGoals = Array[int]([12])
+
+[node name="PickaxeParent" type="StaticBody3D" parent="PickaxeItem" unique_id=778764044]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.40000153, 0, 0)
+collision_layer = 2
+collision_mask = 0
+
+[node name="PickaxeCollider" type="CollisionShape3D" parent="PickaxeItem/PickaxeParent" unique_id=15764831]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.091999054, 0)
+shape = SubResource("BoxShape3D_vfs2c")
+
+[node name="pickaxe" parent="PickaxeItem/PickaxeParent/PickaxeCollider" unique_id=1034577212 instance=ExtResource("13_4cl6r")]
+transform = Transform3D(0.19647719, 0, -0.4814527, 0, 0.52, 0, 0.4814527, 0, 0.19647719, 0, -0.5, 0)
+
+[node name="CaveLight3" type="OmniLight3D" parent="PickaxeItem/PickaxeParent/PickaxeCollider/pickaxe" unique_id=77762238]
+transform = Transform3D(1.9230773, 0, 0, 0, 1.9230771, 0, 0, 0, 1.9230773, -0.07266235, 0, 0.17805481)
+light_color = Color(0.3701279, 0.8109926, 0.9973833, 1)
+light_energy = 2.0
+omni_range = 1.114
+
+[node name="MapItem" type="Node3D" parent="." unique_id=1224357375]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.5, 21, 98.5)
+script = ExtResource("12_4cl6r")
+_activeAtGoals = Array[int]([14])
+
+[node name="MapParent" type="RigidBody3D" parent="MapItem" unique_id=163184731]
+collision_layer = 2
+
+[node name="MapCollider" type="CollisionShape3D" parent="MapItem/MapParent" unique_id=759543734]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.06949997, 0)
+shape = SubResource("BoxShape3D_vfs2c")
+
+[node name="map" parent="MapItem/MapParent/MapCollider" unique_id=426039702 instance=ExtResource("15_fw41u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.055, 0)
+
+[node name="Village" type="Node3D" parent="." unique_id=1845135079]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 75.50643, 19.207531, 179.38521)
+
+[node name="CaveLight" type="OmniLight3D" parent="Village" unique_id=1791825102]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.759056, 0, -3.056656)
+light_color = Color(1, 0.64, 0.64, 1)
+light_energy = 2.0
+
+[node name="CaveLight2" type="OmniLight3D" parent="Village" unique_id=1801172144]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0967636, 0, 8.95256)
+light_color = Color(1, 0.64, 0.64, 1)
+light_energy = 2.0
+
+[node name="CaveLight3" type="OmniLight3D" parent="Village" unique_id=958770621]
+light_color = Color(1, 0.64, 0.64, 1)
+light_energy = 2.0
+
+[node name="Exit" type="CSGMesh3D" parent="." unique_id=275606509]
+transform = Transform3D(0.05624646, 0, 0, 0, 6.1959906, 0, 0, 0, 6.1959906, -37.13971, 5.3057666, -6.9367323)
+mesh = SubResource("BoxMesh_71sqb")
+material = SubResource("StandardMaterial3D_vfs2c")
+
+[node name="ExitWatcher" type="Node3D" parent="." unique_id=1117051392]
+
+[node name="Dwarf" type="Sprite3D" parent="." unique_id=1470514822]
+transform = Transform3D(2.0003808, 0, 1.421356e-14, 0, 2.0003808, 0, -1.421356e-14, 0, 2.0003808, -29.318165, 3.6440449, -6.573729)
+visible = false
+billboard = 1
+texture_filter = 0
+texture = ExtResource("16_ilqn7")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Dwarf" unique_id=399546600]
+transform = Transform3D(0.51976573, 0, 0, 0, 0.51976573, 0, 0, 0, 0.51976573, -3.8136225, 0.59950006, 0)
+light_energy = 16.0
+
+[node name="Label3D" type="Label3D" parent="Dwarf" unique_id=847967689]
+transform = Transform3D(0.9999999, 0, 0, 0, 0.9999999, 0, 0, 0, 0.9999999, 0, 0.21801889, 0)
+billboard = 1
+texture_filter = 0
+text = "I'm Just A Little Guy!"
+
+[node name="GoalController" type="Node" parent="." unique_id=595681990]
+script = ExtResource("18_ck5x8")
+
+[node name="level" parent="." unique_id=181333258 node_paths=PackedStringArray("_goalController") instance=ExtResource("17_wt5fk")]
+script = ExtResource("18_fw41u")
+_goalController = NodePath("../GoalController")
+
+[connection signal="GoalChange" from="GoalController" to="player" method="OnMainGoalChange"]
+[connection signal="GoalChange" from="GoalController" to="PickaxeItem" method="OnMainGoalChange"]
+[connection signal="GoalChange" from="GoalController" to="MapItem" method="OnMainGoalChange"]
+[connection signal="GoalChange" from="GoalController" to="level" method="OnGoalUpdateObjects"]

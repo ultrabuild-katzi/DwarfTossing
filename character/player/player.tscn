@@ -2,14 +2,14 @@
 
 [ext_resource type="Script" uid="uid://cg7ruhtpleh01" path="res://character/player/Player.cs" id="1_gtsfv"]
 [ext_resource type="AudioStream" uid="uid://dtrmeyccueivc" path="res://sfx/firecrackling.mp3" id="3_eu8pa"]
-[ext_resource type="Shader" uid="uid://cb0sy514ig1x2" path="res://character/player/film_grain.gdshader" id="3_g20gq"]
+[ext_resource type="Shader" uid="uid://cb0sy514ig1x2" path="res://vfx/film_grain.gdshader" id="3_g20gq"]
 [ext_resource type="Texture2D" uid="uid://cqph1fsy0h3mi" path="res://character/player/torch.png" id="3_wu8e1"]
-[ext_resource type="Texture2D" uid="uid://sb16ofmutq82" path="res://character/player/dwarf_pickaxe.png" id="4_eu8pa"]
-[ext_resource type="Script" uid="uid://cyvnmin3h5nxj" path="res://character/player/SanityController.cs" id="4_wu8e1"]
-[ext_resource type="Texture2D" uid="uid://6mubcaqfatfv" path="res://character/player/Arrow.png" id="7_noxpy"]
-[ext_resource type="Script" uid="uid://ck5hdefup0wvt" path="res://character/player/Compass.cs" id="8_0cf6c"]
-[ext_resource type="Script" uid="uid://bduaa377sp6s" path="res://character/player/GoalController.cs" id="9_v2h1c"]
-[ext_resource type="Script" uid="uid://bw7khou8nld6b" path="res://character/player/VolumeSlider.cs" id="10_qh58e"]
+[ext_resource type="PackedScene" uid="uid://bv4d7g1dpjgdu" path="res://item/crystal/crystal.gltf" id="4_v2h1c"]
+[ext_resource type="Script" uid="uid://cyvnmin3h5nxj" path="res://vfx/SanityController.cs" id="4_wu8e1"]
+[ext_resource type="PackedScene" uid="uid://khdctiwsc2fg" path="res://item/map/map.gltf" id="5_qh58e"]
+[ext_resource type="PackedScene" uid="uid://x3updkmmhrvl" path="res://character/player/player.gltf" id="6_eu8pa"]
+[ext_resource type="PackedScene" uid="uid://hplxtrri571b" path="res://item/pickaxe/pickaxe.gltf" id="6_qh58e"]
+[ext_resource type="Script" uid="uid://vamygc2w7sy0" path="res://character/player/PlayerGoalController.cs" id="7_noxpy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ayj7t"]
 shader = ExtResource("3_g20gq")
@@ -21,17 +21,19 @@ shader_parameter/random_modifier = 0.0
 radius = 0.2524414
 height = 1.1693726
 
-[node name="player" type="CharacterBody3D" unique_id=1455122187 node_paths=PackedStringArray("_camera", "_targetingLabel", "_goalController", "_menu")]
+[node name="player" type="CharacterBody3D" unique_id=1455122187 node_paths=PackedStringArray("_camera", "_targetingLabel", "_playerGoalController")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+collision_layer = 8
+collision_mask = 9
 script = ExtResource("1_gtsfv")
 FollowSpeed = 0.2
 _camera = NodePath("Camera3D")
 _targetingLabel = NodePath("CanvasLayer/InteractLabel")
-_goalController = NodePath("GoalController")
-_menu = NodePath("Menu")
+_playerGoalController = NodePath("PlayerGoalController")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1442233393]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+cull_mask = 1048573
 current = true
 
 [node name="Torch" type="Sprite3D" parent="Camera3D" unique_id=1495348667]
@@ -58,21 +60,14 @@ pitch_scale = 1.33
 autoplay = true
 parameters/looping = true
 
-[node name="Pickaxe" type="Sprite3D" parent="Camera3D" unique_id=1996517032]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.60051984, -0.23030007, -0.69873416)
-visible = false
-billboard = 1
-texture_filter = 0
-texture = ExtResource("4_eu8pa")
+[node name="Crystal" parent="Camera3D" unique_id=1669561481 instance=ExtResource("4_v2h1c")]
+transform = Transform3D(0.785, 0, 0, 0, 0.785, 0, 0, 0, 0.785, -3.059797e-08, -0.59999996, -0.7)
 
-[node name="Compass" type="Sprite3D" parent="Camera3D" unique_id=1963505310]
-transform = Transform3D(2.0061126, 0, 0, 0, -8.768997e-08, 2.0061126, 0, -2.0061126, -8.768997e-08, -4.925302e-08, 0.51267654, -1.1267778)
-flip_h = true
-flip_v = true
-axis = 1
-texture_filter = 0
-texture = ExtResource("7_noxpy")
-script = ExtResource("8_0cf6c")
+[node name="Map" parent="Camera3D" unique_id=1705793288 instance=ExtResource("5_qh58e")]
+transform = Transform3D(0.475, 1.4681591e-08, -6.081315e-09, -1.4681591e-08, 0.3358757, -0.33587575, -6.081315e-09, 0.33587575, 0.3358757, -2.6226834e-08, -0.4, -0.6)
+
+[node name="Pickaxe" parent="Camera3D" unique_id=369886804 instance=ExtResource("6_qh58e")]
+transform = Transform3D(0.16669124, 0, 0.3202109, 0, 0.361, 0, -0.3202109, 0, 0.16669124, -0.30000004, -0.6, -0.5)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1050109276]
 
@@ -96,11 +91,6 @@ grow_vertical = 2
 color = Color(1, 1, 1, 0)
 script = ExtResource("4_wu8e1")
 
-[node name="MainGoalLabel" type="Label" parent="CanvasLayer" unique_id=255734862]
-modulate = Color(1, 1, 1, 0)
-offset_right = 424.0
-offset_bottom = 49.0
-
 [node name="TemporaryMainGoalLabel" type="Label" parent="CanvasLayer" unique_id=1769273806]
 modulate = Color(1, 1, 1, 0)
 offset_left = 2.0
@@ -118,59 +108,12 @@ offset_bottom = 458.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.062469482, 0)
 shape = SubResource("CapsuleShape3D_euv82")
 
-[node name="GoalController" type="Node" parent="." unique_id=327724183 node_paths=PackedStringArray("_player", "_sanityController", "_mainGoalLabel", "_temporaryGoalLabel")]
-script = ExtResource("9_v2h1c")
-_player = NodePath("..")
-_sanityController = NodePath("../CanvasLayer/FilmGrainRect")
-_mainGoalLabel = NodePath("../CanvasLayer/MainGoalLabel")
-_temporaryGoalLabel = NodePath("../CanvasLayer/TemporaryMainGoalLabel")
-
-[node name="Menu" type="CanvasLayer" parent="." unique_id=1324682237]
+[node name="model" parent="." unique_id=841176390 instance=ExtResource("6_eu8pa")]
+transform = Transform3D(-0.142, 0, -2.1441405e-08, 0, 0.142, 0, 2.1441405e-08, 0, -0.142, 5.9604645e-08, -0.10000001, -2.6054018e-15)
 visible = false
 
-[node name="ColorRect" type="ColorRect" parent="Menu" unique_id=1652145621]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.05, 0.05, 0.05, 0.34901962)
-
-[node name="Mouse Sensitivity" type="Label" parent="Menu/ColorRect" unique_id=995596419]
-layout_mode = 0
-offset_left = 19.0
-offset_top = 19.0
-offset_right = 161.0
-offset_bottom = 36.0
-theme_override_font_sizes/font_size = 40
-text = "Mouse Sensitivity"
-
-[node name="HSlider" type="HSlider" parent="Menu/ColorRect/Mouse Sensitivity" unique_id=315087999]
-layout_mode = 0
-offset_top = 51.0
-offset_right = 348.0
-offset_bottom = 67.0
-min_value = 1.0
-max_value = 50.0
-value = 15.0
-tick_count = 1
-
-[node name="Volume" type="Label" parent="Menu/ColorRect" unique_id=842771409]
-layout_mode = 0
-offset_left = 21.0
-offset_top = 121.0
-offset_right = 172.0
-offset_bottom = 206.0
-theme_override_font_sizes/font_size = 40
-text = "Volume
-"
-
-[node name="HSlider" type="HSlider" parent="Menu/ColorRect/Volume" unique_id=1242221067]
-layout_mode = 0
-offset_top = 45.0
-offset_right = 355.0
-offset_bottom = 61.0
-min_value = -20.0
-max_value = 20.0
-value = 10.0
-script = ExtResource("10_qh58e")
+[node name="PlayerGoalController" type="Node" parent="." unique_id=63124187 node_paths=PackedStringArray("_player", "_temporaryGoalLabel", "_sanityController")]
+script = ExtResource("7_noxpy")
+_player = NodePath("..")
+_temporaryGoalLabel = NodePath("../CanvasLayer/TemporaryMainGoalLabel")
+_sanityController = NodePath("../CanvasLayer/FilmGrainRect")
