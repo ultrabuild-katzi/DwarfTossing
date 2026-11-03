@@ -25,9 +25,26 @@ public partial class Player : CharacterBody3D
 
     private double _gameQuitTimer;
 
+    
+    
     public override void _Ready()
     {
         Input.MouseMode = Input.MouseModeEnum.Captured;
+    }
+
+    public override void _Process(double delta)
+    {
+        Vector2 joyStickLookDir = Input.GetVector("look_left", "look_right", "look_up", "look_down");
+        if (joyStickLookDir != Vector2.Zero)
+        {
+            const float lookSensitivity = 2f;
+
+            Vector3 rotation = _camera.Rotation;
+            rotation.Y += -joyStickLookDir.X * lookSensitivity * (float)delta;
+            rotation.X += -joyStickLookDir.Y * lookSensitivity * (float)delta;
+            rotation.X = Math.Clamp(rotation.X, -1.0f, 1.0f);
+            _camera.Rotation = rotation;
+        }
     }
 
     public override void _PhysicsProcess(double delta)
@@ -174,18 +191,6 @@ public partial class Player : CharacterBody3D
             Vector3 localDirection = new Vector3(-mouseVelocity.Y, -mouseVelocity.X, 0) / 4;
             _camera.Rotation += localDirection / Math.Abs(100f - _gameSettings.MouseSensitivity);
             _camera.Rotation = new Vector3(Math.Clamp(_camera.Rotation.X, -1.0f, 1.0f), _camera.Rotation.Y, _camera.Rotation.Z);
-        }
-        else if (motionUnknown is InputEventJoypadMotion motion)
-        {
-            switch (motion.Axis)
-            {
-                case JoyAxis.RightX:
-                    _camera.Rotation += new Vector3(motion.AxisValue, 0, 0);
-                    break;
-                case JoyAxis.RightY:
-                    _camera.Rotation += new Vector3(0, motion.AxisValue, 0);
-                    break;
-            }
         }
     }
 }
