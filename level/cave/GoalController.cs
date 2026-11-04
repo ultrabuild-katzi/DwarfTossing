@@ -17,6 +17,7 @@ public partial class GoalController : Node
 
     public void UpdateToState(MainGoal goal)
     {
+        GD.Print("UpdateToState, current goal" + MainGoal + " - target goal " + goal);
         if (MainGoal >= goal)
         {
             return;

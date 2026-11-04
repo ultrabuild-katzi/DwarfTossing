@@ -10,9 +10,9 @@ public partial class PlayerGoalController : Node
     private TemporaryGoal? _temporaryGoal;
     private double _temporaryGoalTimeoutSeconds;
     
-    [Export] private Player _player;
-    [Export] private Label _temporaryGoalLabel;
-	[Export] private SanityController _sanityController;
+    [Export] public required Player Player;
+    [Export] public required Label TemporaryGoalLabel;
+	[Export] public required SanityController SanityController;
 
     private MainGoal _mainGoal;
     
@@ -20,7 +20,7 @@ public partial class PlayerGoalController : Node
 
     public override void _PhysicsProcess(double delta)
     {
-        if (_temporaryGoal == null && _sanityController._sanity > 0 && _temporaryGoalTimeoutSeconds <= 0)
+        if (_temporaryGoal == null && SanityController._sanity > 0 && _temporaryGoalTimeoutSeconds <= 0)
         {
             _temporaryGoal = _random.GetItems(Enum.GetValues<TemporaryGoal>(), 1)[0];
         }
@@ -29,8 +29,8 @@ public partial class PlayerGoalController : Node
             _temporaryGoalTimeoutSeconds -= delta;
 
         if (_temporaryGoal != null)
-            _temporaryGoalLabel.Text = Translations.TemporaryGoalDescriptions[(TemporaryGoal) _temporaryGoal];
-        InterpolateAlpha(_temporaryGoalLabel, _temporaryGoal == null ? 0 : 1, delta * 2);
+            TemporaryGoalLabel.Text = Translations.TemporaryGoalDescriptions[(TemporaryGoal) _temporaryGoal];
+        InterpolateAlpha(TemporaryGoalLabel, _temporaryGoal == null ? 0 : 1, delta * 2);
     }
 
     public void InteractWith(Node itemInstance, Items item)
@@ -38,7 +38,7 @@ public partial class PlayerGoalController : Node
         switch (item)
         {
             case Items.Water:
-                MeshInstance3D waterInstance = itemInstance as MeshInstance3D;
+                MeshInstance3D waterInstance = (MeshInstance3D) itemInstance;
 
                 Vector3 scale = waterInstance!.Scale;
                 scale.Z -= 0.2f;
@@ -76,21 +76,21 @@ public partial class PlayerGoalController : Node
     {
         if (item == Items.PoisonousMushroom)
         {
-            _sanityController._sanity = Math.Max(_sanityController._sanity, 1.5);
+            SanityController._sanity = Math.Max(SanityController._sanity, 1.5);
             _temporaryGoal = null;
         }
 
         if (_temporaryGoal == TemporaryGoal.Drink && item == Items.Water
             || _temporaryGoal == TemporaryGoal.Eat && item == Items.EatableMushroom)
         {
-            _sanityController._sanity = Math.Max(_sanityController._sanity - 1.5, 0);
+            SanityController._sanity = Math.Max(SanityController._sanity - 1.5, 0);
             _temporaryGoal = null;
         }
 
         _temporaryGoalTimeoutSeconds = 20;
     }
 
-    public void InterpolateAlpha(Label label, int toAlpha, double weight)
+    private void InterpolateAlpha(Label label, int toAlpha, double weight)
     {
         Color color = label.Modulate;
         color.A = (float)Mathf.Lerp(color.A, toAlpha, weight);
