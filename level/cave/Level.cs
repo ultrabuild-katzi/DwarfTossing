@@ -10,8 +10,8 @@ public partial class Level : Node3D
 {
     private static readonly List<GoalObjectAction> GoalObjectActions =
     [
-        new(goal => goal is MainGoal.StoneFall, "cobblestone-[StoneFall]-pickaxe.*", ItemManager.SetCobblestoneMineable),
-        new(goal => goal is MainGoal.MiningAttempt, "cobblestone-[Exit]-pickaxe.*", ItemManager.SetCobblestoneMineable),
+        new(goal => goal is MainGoal.StoneFall, "cobblestone-[StoneFall]-pickaxe.*", ItemManager.SetCobblestoneMineable, "StoneFall"),
+        new(goal => goal is MainGoal.MiningAttempt, "cobblestone-[Exit]-pickaxe.*", ItemManager.SetCobblestoneMineable, "StoneBoom"),
         new(goal => goal < MainGoal.PreElevator, "temporary_stone-[First]", ItemManager.RemovePhysicallyFromWorld),
         new(goal => goal > MainGoal.Village, "temporary_stone-[Mine]", ItemManager.RemovePhysicallyFromWorld),
         new(goal => goal < MainGoal.Village, "temporary_stone-[Village]", ItemManager.RemovePhysicallyFromWorld),
@@ -60,17 +60,44 @@ public partial class Level : Node3D
                 }
                 else
                 {
-                    ItemManager.RestorePhysicallyToWorld(staticBody3D);
+                    PlayBoomEffect(action);
+                    ItemManager.RestorePhysicallyToWorld(staticBody3D, layer:1);
                 }
             }
         }
+    }
+
+    private void PlayBoomEffect(GoalObjectAction action)
+    {
+        if (action.BoomEffect == null) return;
+        
+        Node stoneBoom = GetParent().GetNode(action.BoomEffect);
+        GpuParticles3D particles = stoneBoom.GetChild<GpuParticles3D>(1);
+        particles.Emitting = true;
+
+        AudioStreamPlayer3D player = stoneBoom.GetChild<AudioStreamPlayer3D>(2);
+        player.Playing = true;
     }
 
     private readonly record struct GoalObjectAction(
         Func<MainGoal, bool> IsActive,
         string ObjectPattern,
         Action<StaticBody3D> OnActivate
-    );
+    )
+    {
+        public readonly string? BoomEffect;
+
+        public GoalObjectAction(
+            Func<MainGoal, bool> IsActive,
+            string ObjectPattern,
+            Action<StaticBody3D> OnActivate,
+            string boomEffect
+        ) : this(IsActive, ObjectPattern, OnActivate)
+        {
+            BoomEffect = boomEffect;
+        }
+        
+    }
 
     [GeneratedRegex(@"detector_area-\[(.*)\]")]
     private static partial Regex DetectorAreaNameRegex();
