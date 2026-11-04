@@ -40,9 +40,9 @@ text = "Mouse Sensitivity"
 
 [node name="MouseSensitivitySlider" type="HSlider" parent="Control/VBoxContainer" unique_id=890638272]
 layout_mode = 2
-min_value = 1.0
 max_value = 50.0
-value = 15.0
+step = 0.01
+value = 1.0
 tick_count = 1
 
 [node name="Master Volume" type="Label" parent="Control/VBoxContainer" unique_id=80061628]
