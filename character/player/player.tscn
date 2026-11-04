@@ -64,12 +64,15 @@ parameters/looping = true
 
 [node name="Crystal" parent="Camera3D" unique_id=1669561481 instance=ExtResource("4_v2h1c")]
 transform = Transform3D(0.785, 0, 0, 0, 0.785, 0, 0, 0, 0.785, -3.059797e-08, -0.59999996, -0.7)
+visible = false
 
 [node name="Map" parent="Camera3D" unique_id=1705793288 instance=ExtResource("5_qh58e")]
 transform = Transform3D(0.475, 1.4681591e-08, -6.081315e-09, -1.4681591e-08, 0.3358757, -0.33587575, -6.081315e-09, 0.33587575, 0.3358757, -2.6226834e-08, -0.4, -0.6)
+visible = false
 
 [node name="Pickaxe" parent="Camera3D" unique_id=369886804 instance=ExtResource("6_qh58e")]
 transform = Transform3D(0.16669124, 0, 0.3202109, 0, 0.361, 0, -0.3202109, 0, 0.16669124, -0.30000004, -0.6, -0.5)
+visible = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1050109276]
 
@@ -117,8 +120,8 @@ shape = SubResource("CapsuleShape3D_euv82")
 transform = Transform3D(-0.142, 0, -2.1441405e-08, 0, 0.142, 0, 2.1441405e-08, 0, -0.142, 5.9604645e-08, -0.10000001, -2.6054018e-15)
 visible = false
 
-[node name="PlayerGoalController" type="Node" parent="." unique_id=63124187 node_paths=PackedStringArray("_player", "_temporaryGoalLabel", "_sanityController")]
+[node name="PlayerGoalController" type="Node" parent="." unique_id=63124187 node_paths=PackedStringArray("Player", "TemporaryGoalLabel", "SanityController")]
 script = ExtResource("7_noxpy")
-_player = NodePath("..")
-_temporaryGoalLabel = NodePath("../CanvasLayer/TemporaryMainGoalLabel")
-_sanityController = NodePath("../CanvasLayer/FilmGrainRect")
+Player = NodePath("..")
+TemporaryGoalLabel = NodePath("../CanvasLayer/TemporaryMainGoalLabel")
+SanityController = NodePath("../CanvasLayer/FilmGrainRect")

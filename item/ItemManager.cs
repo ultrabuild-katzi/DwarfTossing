@@ -39,11 +39,11 @@ public static class ItemManager
         item.SetCollisionLayer(1);
     }
 
-    public static void RestorePhysicallyToWorld(PhysicsBody3D body)
+    public static void RestorePhysicallyToWorld(PhysicsBody3D body, uint layer)
     {
         body.GetParentOrNull<MeshInstance3D>()?.Show();
 
-        body.SetCollisionLayer(1);
+        body.SetCollisionLayer(layer);
         body.SetCollisionMask(1);
         body.Show();
         body.SetPhysicsProcess(true);

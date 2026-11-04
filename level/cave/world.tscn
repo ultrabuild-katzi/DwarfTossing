@@ -97,7 +97,7 @@ script = ExtResource("1_4cl6r")
 environment = SubResource("Environment_8eijk")
 
 [node name="player" parent="." unique_id=1455122187 node_paths=PackedStringArray("_footstepsStream", "_goalController") instance=ExtResource("2_tjjer")]
-transform = Transform3D(-0.9999999, 0, 8.742276e-08, 0, 1, 0, -8.742276e-08, 0, -0.9999999, 36.651077, 19, 97.42627)
+transform = Transform3D(1.1924879e-08, 0, -0.9999999, 0, 1, 0, 0.9999999, 0, 1.1924879e-08, 36.651077, 19, 97.42627)
 FollowSpeed = 0.3
 _footstepsStream = NodePath("FootstepsPlayer")
 _goalController = NodePath("../GoalController")
@@ -352,6 +352,24 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
 stream = ExtResource("13_kbmj6")
 volume_db = -13.489
 
+[node name="StoneFall" type="Node3D" parent="." unique_id=1908676730]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 51, 19, 117)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="StoneFall" unique_id=1020021469]
+transform = Transform3D(0.99995583, -0.009401321, 0, 0.009401321, 0.99995583, 0, 0, 0, 1, 0, 0, -1)
+emitting = false
+amount = 26
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_71sqb")
+draw_pass_1 = SubResource("SphereMesh_vfs2c")
+
+[node name="BoomPlayer" type="AudioStreamPlayer3D" parent="StoneFall" unique_id=1333087297]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
+stream = ExtResource("13_kbmj6")
+volume_db = -13.489
+
 [node name="PickaxeItem" type="Node3D" parent="." unique_id=971372627]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72.86547, 18.596762, 180.54138)
 script = ExtResource("12_4cl6r")
@@ -360,7 +378,6 @@ _activeAtGoals = Array[int]([12])
 [node name="PickaxeParent" type="StaticBody3D" parent="PickaxeItem" unique_id=778764044]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.40000153, 0, 0)
 collision_layer = 2
-collision_mask = 0
 
 [node name="PickaxeCollider" type="CollisionShape3D" parent="PickaxeItem/PickaxeParent" unique_id=15764831]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.091999054, 0)
@@ -369,7 +386,7 @@ shape = SubResource("BoxShape3D_vfs2c")
 [node name="pickaxe" parent="PickaxeItem/PickaxeParent/PickaxeCollider" unique_id=1034577212 instance=ExtResource("13_4cl6r")]
 transform = Transform3D(0.19647719, 0, -0.4814527, 0, 0.52, 0, 0.4814527, 0, 0.19647719, 0, -0.5, 0)
 
-[node name="CaveLight3" type="OmniLight3D" parent="PickaxeItem/PickaxeParent/PickaxeCollider/pickaxe" unique_id=77762238]
+[node name="PickaxeLight" type="OmniLight3D" parent="PickaxeItem/PickaxeParent/PickaxeCollider/pickaxe" unique_id=77762238]
 transform = Transform3D(1.9230773, 0, 0, 0, 1.9230771, 0, 0, 0, 1.9230773, -0.07266235, 0, 0.17805481)
 light_color = Color(0.3701279, 0.8109926, 0.9973833, 1)
 light_energy = 2.0
@@ -434,10 +451,11 @@ text = "I'm Just A Little Guy!"
 [node name="GoalController" type="Node" parent="." unique_id=595681990]
 script = ExtResource("18_ck5x8")
 
-[node name="level" parent="." unique_id=181333258 node_paths=PackedStringArray("_goalController") instance=ExtResource("17_wt5fk")]
+[node name="level" parent="." unique_id=181333258 node_paths=PackedStringArray("GoalController") instance=ExtResource("17_wt5fk")]
 script = ExtResource("18_fw41u")
-_goalController = NodePath("../GoalController")
+GoalController = NodePath("../GoalController")
 
+[connection signal="PlayerTriggerGoalChange" from="player" to="GoalController" method="UpdateToState"]
 [connection signal="GoalChange" from="GoalController" to="player" method="OnMainGoalChange"]
 [connection signal="GoalChange" from="GoalController" to="PickaxeItem" method="OnMainGoalChange"]
 [connection signal="GoalChange" from="GoalController" to="MapItem" method="OnMainGoalChange"]

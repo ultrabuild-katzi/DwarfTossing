@@ -24,6 +24,9 @@ public partial class Player : CharacterBody3D
 
     private double _gameQuitTimer;
     
+    [Signal]
+    public delegate void PlayerTriggerGoalChangeEventHandler(MainGoal goal);
+    
     public override void _Ready()
     {
         Input.MouseMode = Input.MouseModeEnum.Captured;
@@ -166,5 +169,10 @@ public partial class Player : CharacterBody3D
             pauseMenu.Visible = true;
             GetViewport().SetInputAsHandled();
         }
+    }
+
+    public void TriggerGoalChange(MainGoal mainGoal)
+    {
+        EmitSignalPlayerTriggerGoalChange(mainGoal);
     }
 }

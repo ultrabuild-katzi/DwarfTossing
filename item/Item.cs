@@ -13,7 +13,7 @@ public partial class Item : Node3D
     {
         if (_activeAtGoals.Contains(goal))
         {
-            ItemManager.RestorePhysicallyToWorld(GetChild<PhysicsBody3D>(0));
+            ItemManager.RestorePhysicallyToWorld(GetChild<PhysicsBody3D>(0), layer:2);
         }
         else
         {

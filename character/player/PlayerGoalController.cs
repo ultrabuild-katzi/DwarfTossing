@@ -33,6 +33,8 @@ public partial class PlayerGoalController : Node
         InterpolateAlpha(TemporaryGoalLabel, _temporaryGoal == null ? 0 : 1, delta * 2);
     }
 
+    private int cobblestoneMineCounter = 0;
+    
     public void InteractWith(Node itemInstance, Items item)
     {
         switch (item)
@@ -58,13 +60,35 @@ public partial class PlayerGoalController : Node
                 Consume(item);
                 break;
 
-            case Items.Pickaxe or Items.Map or Items.ElevatorButton or Items.Crystal:
+            case Items.Pickaxe or Items.Map or Items.Crystal:
+                MainGoal mainGoal = item switch
+                {
+                    Items.Pickaxe => MainGoal.StoneFall,
+                    Items.Map => MainGoal.FindTreasure,
+                    Items.Crystal => MainGoal.TreasureCollected,
+                    _ => throw new ArgumentOutOfRangeException()
+                };
                 
-                // itemInstance.GetParent().RemoveChild(itemInstance);
+                Player.TriggerGoalChange(mainGoal);
+                break;
+            
+            case Items.ElevatorButton:
+                Player.TriggerGoalChange(MainGoal.Elevator);
+                Player.Position = new Vector3(88.0f, 19.0f, 31.5f);
                 break;
 
             case Items.Cobblestone:
                 ItemManager.RemovePhysicallyFromWorld((StaticBody3D) itemInstance);
+                cobblestoneMineCounter++;
+                if (cobblestoneMineCounter >= 4)
+                {
+                    Player.TriggerGoalChange(MainGoal.CollectTreasureMap);
+                }
+
+                if (cobblestoneMineCounter >= 6)
+                {
+                    Player.TriggerGoalChange(MainGoal.TreasureDwarfEncounter);
+                }
                 break;
             
             default:
