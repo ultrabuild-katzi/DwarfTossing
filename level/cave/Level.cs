@@ -10,22 +10,21 @@ public partial class Level : Node3D
 {
     private static readonly List<GoalObjectAction> GoalObjectActions =
     [
-        new(goal => goal is MainGoal.StoneFall, @"cobblestone-\[StoneFall\]-pickaxe.*", ItemManager.SetCobblestoneMineable),
-        new(goal => goal is MainGoal.MiningAttempt, @"cobblestone-\[Exit\]-pickaxe.*", ItemManager.SetCobblestoneMineable),
-        new(goal => goal < MainGoal.PreElevator, @"temporary_stone-\[First\]", ItemManager.RemovePhysicallyFromWorld),
-        new(goal => goal > MainGoal.Village, @"temporary_stone-\[Mine\]", ItemManager.RemovePhysicallyFromWorld),
-        new(goal => goal < MainGoal.Village, @"temporary_stone-\[Village\]", ItemManager.RemovePhysicallyFromWorld),
+        new(goal => goal is MainGoal.StoneFall, "cobblestone-[StoneFall]-pickaxe.*", ItemManager.SetCobblestoneMineable),
+        new(goal => goal is MainGoal.MiningAttempt, "cobblestone-[Exit]-pickaxe.*", ItemManager.SetCobblestoneMineable),
+        new(goal => goal < MainGoal.PreElevator, "temporary_stone-[First]", ItemManager.RemovePhysicallyFromWorld),
+        new(goal => goal > MainGoal.Village, "temporary_stone-[Mine]", ItemManager.RemovePhysicallyFromWorld),
+        new(goal => goal < MainGoal.Village, "temporary_stone-[Village]", ItemManager.RemovePhysicallyFromWorld),
     ];
 
-    [Export] private GoalController _goalController;
+    [Export] public required GoalController GoalController;
     
     public override void _Ready()
     {
-        
-        string regex = @"detector_area-\[(.*)\]";
-        foreach (Area3D area in ItemManager.FindLevelObjectsWithName<Area3D>(this, regex))
+        foreach (var node in FindChildren("detector_area-[*]", recursive:false))
         {
-            string goalName = Regex.Match(area.Name.ToString().ToLower(), regex).Groups[1].Value;
+            Area3D area = (Area3D)node;
+            string goalName = DetectorAreaNameRegex().Match(area.Name.ToString().ToLower()).Groups[1].Value;
             bool tryParse = Enum.TryParse(goalName, true, out MainGoal goal);
             if (!tryParse)
             {
@@ -35,7 +34,7 @@ public partial class Level : Node3D
 
             area.BodyEntered += body =>
             {
-                _goalController.UpdateToState(goal);
+                GoalController.UpdateToState(goal);
             };
         }
 
@@ -50,8 +49,9 @@ public partial class Level : Node3D
             if (isCurrentlyActive != wasPreviouslyActive)
                 continue;
 
-            foreach (MeshInstance3D meshInstance3D in ItemManager.FindLevelObjectsWithName<MeshInstance3D>(this, action.ObjectPattern))
+            foreach (var node in FindChildren(action.ObjectPattern, recursive:false))
             {
+                MeshInstance3D meshInstance3D = (MeshInstance3D)node;
                 StaticBody3D staticBody3D = meshInstance3D.GetNode<StaticBody3D>("StaticBody3D");
                 
                 if (isCurrentlyActive)
@@ -71,4 +71,7 @@ public partial class Level : Node3D
         string ObjectPattern,
         Action<StaticBody3D> OnActivate
     );
+
+    [GeneratedRegex(@"detector_area-\[(.*)\]")]
+    private static partial Regex DetectorAreaNameRegex();
 }

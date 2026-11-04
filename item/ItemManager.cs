@@ -1,8 +1,5 @@
 using Godot;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace DwarfTossing.Item;
 
@@ -31,14 +28,6 @@ public static class ItemManager
         return null;
     }
 
-    public static IEnumerable<T> FindLevelObjectsWithName<T>(Node3D level, string pattern)
-    {
-        return level
-            .GetChildren()
-            .Where(s => Regex.IsMatch(s.Name.ToString(), pattern))
-            .Cast<T>();
-    }
-
     public static void SetCobblestoneMineable(PhysicsBody3D cobblestone)
     {
         cobblestone.SetCollisionLayer(1 | 4);
@@ -53,13 +42,13 @@ public static class ItemManager
     public static void RestorePhysicallyToWorld(PhysicsBody3D body)
     {
         body.GetParentOrNull<MeshInstance3D>()?.Show();
-        
+
         body.SetCollisionLayer(1);
         body.SetCollisionMask(1);
         body.Show();
         body.SetPhysicsProcess(true);
     }
-    
+
     public static void RemovePhysicallyFromWorld(PhysicsBody3D body)
     {
         body.GetParentOrNull<MeshInstance3D>()?.Hide();
