@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://dgufhcccvowo0"]
+
+[ext_resource type="Script" uid="uid://d0278wqkv2il1" path="res://screen/main_menu/main_menu.gd" id="1_g8xsk"]
+[ext_resource type="PackedScene" uid="uid://nwgrax1bpvp7" path="res://screen/options/options.tscn" id="2_ua1rk"]
+
+[node name="MainMenu" type="CanvasLayer" unique_id=230262069]
+process_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1574217055]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.096204735, 0.09620475, 0.096204735, 1)
+
+[node name="OptionsMenu" parent="." unique_id=374944178 instance=ExtResource("2_ua1rk")]
+visible = false
+
+[node name="Control" type="Control" parent="." unique_id=683267436]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 1
+script = ExtResource("1_g8xsk")
+
+[node name="Label" type="Label" parent="Control" unique_id=57192981]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -420.0
+offset_top = 60.0
+offset_right = 420.0
+offset_bottom = 192.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 113
+text = "Dwarf Tossing"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control" unique_id=272361087]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -442.0
+offset_top = -109.5
+offset_right = 442.0
+offset_bottom = 109.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="StartButton" type="Button" parent="Control/VBoxContainer" unique_id=1719717087]
+layout_mode = 2
+theme_override_font_sizes/font_size = 69
+text = "Start!"
+
+[node name="OptionsButton" type="Button" parent="Control/VBoxContainer" unique_id=1719583352]
+layout_mode = 2
+theme_override_font_sizes/font_size = 69
+text = "Options"
+
+[node name="ExitButton" type="Button" parent="Control/VBoxContainer" unique_id=1930808883]
+layout_mode = 2
+theme_override_font_sizes/font_size = 69
+text = "Exit"
+
+[connection signal="visibility_changed" from="OptionsMenu" to="Control" method="_on_options_menu_visibility_changed"]
+[connection signal="pressed" from="Control/VBoxContainer/StartButton" to="Control" method="_on_start_button_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/OptionsButton" to="Control" method="_on_options_button_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/ExitButton" to="Control" method="_on_exit_button_pressed"]

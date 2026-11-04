@@ -28,5 +28,7 @@
     <ItemGroup>
       <Content Include="sfx\*.mp3" />
       <Content Include="future-plans.txt" />
+      <Content Include="**/*.gd" />
+        
     </ItemGroup>
 </Project>

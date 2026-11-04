@@ -15,17 +15,14 @@ public partial class Player : CharacterBody3D
     [Export] private Label _targetingLabel;
     [Export] private GoalController _goalController;
     [Export] private PlayerGoalController _playerGoalController;
+    [Export] private CanvasLayer pauseMenu;
 
-    private readonly GameSettings _gameSettings = new(1.0f, 1.0f, 1.0f);
-    
     private float _cameraBobbing = 10;
     private double _timeSinceStartedMoving;
 
     // [Export] private CanvasLayer _menu;
 
     private double _gameQuitTimer;
-
-    
     
     public override void _Ready()
     {
@@ -49,33 +46,6 @@ public partial class Player : CharacterBody3D
 
     public override void _PhysicsProcess(double delta)
     {
-        // if (_ending)
-        // {
-        //     _camera.LookAt(_dwarf.GlobalPosition);
-        //     _dwarf.Show();
-        //     _gameQuitTimer += delta;
-        //     if (_gameQuitTimer >= 5)
-        //     {
-        //         GetTree().Quit();
-        //     }
-        //     return;
-        // }
-        //
-        if (Input.IsActionJustReleased("pause_game"))
-        {
-            // _paused = !_paused;
-            // if (_paused)
-            // {
-            //     _menu.Show();
-            //     Input.MouseMode = Input.MouseModeEnum.Confined;
-            // }
-            // else
-            // {
-            //     _menu.Hide();
-            //     Input.MouseMode = Input.MouseModeEnum.Captured;
-            // }
-        }
-
         HandleMovement(delta);
         HandleInteractions(delta);
     }
@@ -183,14 +153,18 @@ public partial class Player : CharacterBody3D
         _playerGoalController.OnMainGoalChange(mainGoal);
     }
 
-    public override void _Input(InputEvent motionUnknown)
+    public override void _Input(InputEvent @event)
     {
-        if (motionUnknown is InputEventMouseMotion mouseMotion)
+        if (@event is InputEventMouseMotion mouseMotion)
         {
             Vector2 mouseVelocity = mouseMotion.Relative;
             Vector3 localDirection = new Vector3(-mouseVelocity.Y, -mouseVelocity.X, 0) / 4;
-            _camera.Rotation += localDirection / Math.Abs(100f - _gameSettings.MouseSensitivity);
+            _camera.Rotation += localDirection / Math.Abs(100f - GameSettingsManager.GameSettings.MouseSensitivity);
             _camera.Rotation = new Vector3(Math.Clamp(_camera.Rotation.X, -1.0f, 1.0f), _camera.Rotation.Y, _camera.Rotation.Z);
+        }  else if (@event.IsActionPressed("pause_game"))
+        {
+            pauseMenu.Visible = true;
+            GetViewport().SetInputAsHandled();
         }
     }
 }

@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://bblc1dmh003r2"]
+
+[ext_resource type="Script" uid="uid://byde7gh2oaogh" path="res://screen/pause_menu/pause_menu.gd" id="1_ddere"]
+[ext_resource type="PackedScene" uid="uid://nwgrax1bpvp7" path="res://screen/options/options.tscn" id="2_fci5b"]
+
+[node name="PauseMenu" type="CanvasLayer" unique_id=1382116163]
+process_mode = 2
+
+[node name="Control" type="Control" parent="." unique_id=65905390]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+script = ExtResource("1_ddere")
+
+[node name="Panel" type="Panel" parent="Control" unique_id=1992260004]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control" unique_id=315762797]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -221.0
+offset_top = -129.0
+offset_right = 221.0
+offset_bottom = 129.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Control/VBoxContainer" unique_id=1356678231]
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+text = "Dwarf Tossing"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/VBoxContainer" unique_id=1366539741]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Resume" type="Button" parent="Control/VBoxContainer/VBoxContainer" unique_id=829710185]
+layout_mode = 2
+text = "Resume"
+
+[node name="Options" type="Button" parent="Control/VBoxContainer/VBoxContainer" unique_id=349788778]
+layout_mode = 2
+text = "Options"
+
+[node name="Quit" type="Button" parent="Control/VBoxContainer/VBoxContainer" unique_id=1898495474]
+layout_mode = 2
+text = "Quit"
+
+[node name="OptionsMenu" parent="." unique_id=374944178 instance=ExtResource("2_fci5b")]
+visible = false
+
+[connection signal="visibility_changed" from="." to="Control" method="_on_pause_menu_visibility_changed"]
+[connection signal="pressed" from="Control/VBoxContainer/VBoxContainer/Resume" to="Control" method="_on_resume_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/VBoxContainer/Options" to="Control" method="_on_options_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/VBoxContainer/Quit" to="Control" method="_on_quit_pressed"]
+[connection signal="visibility_changed" from="OptionsMenu" to="Control" method="_on_options_menu_visibility_changed"]

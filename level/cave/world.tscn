@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://b8w5r46ksjgj2"]
 
+[ext_resource type="Script" uid="uid://ckxsyhf8vxdlr" path="res://level/cave/World.cs" id="1_4cl6r"]
 [ext_resource type="Script" uid="uid://rytpwqvn7sad" path="res://sfx/AmbientController.cs" id="2_nadbi"]
 [ext_resource type="PackedScene" uid="uid://dw1022tvfc2j8" path="res://character/player/player.tscn" id="2_tjjer"]
 [ext_resource type="AudioStream" uid="uid://dpsvm2qdhedpi" path="res://sfx/idk.mp3" id="3_hx6qw"]
@@ -90,6 +91,7 @@ albedo_color = Color(18.892157, 18.892157, 18.892157, 1)
 disable_receive_shadows = true
 
 [node name="World" type="Node3D" unique_id=1945656188]
+script = ExtResource("1_4cl6r")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=828307134]
 environment = SubResource("Environment_8eijk")
@@ -113,7 +115,8 @@ stream = ExtResource("8_njrq0")
 volume_db = -38.878
 unit_size = 16.54
 
-[node name="Eyes" type="Node" parent="." unique_id=1170698013]
+[node name="Eyes" type="Node3D" parent="." unique_id=126517045]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70, 14, 82)
 
 [node name="eyes" type="Sprite3D" parent="Eyes" unique_id=1591119359]
 transform = Transform3D(2.5326626, 0, 0, 0, 2.5326626, 0, 0, 0, 2.5326626, -13.036033, 4.770056, -11.168626)
