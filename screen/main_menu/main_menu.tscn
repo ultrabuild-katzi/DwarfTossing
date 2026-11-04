@@ -70,6 +70,19 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 69
 text = "Exit"
 
+[node name="VersionLabel" type="Label" parent="Control" unique_id=2122662157]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 23.0
+offset_top = -49.0
+offset_right = 428.0
+offset_bottom = -12.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 32
+text = "v0.2.1 (SAVEPOINT RELEASE)"
+
 [connection signal="visibility_changed" from="OptionsMenu" to="Control" method="_on_options_menu_visibility_changed"]
 [connection signal="pressed" from="Control/VBoxContainer/StartButton" to="Control" method="_on_start_button_pressed"]
 [connection signal="pressed" from="Control/VBoxContainer/OptionsButton" to="Control" method="_on_options_button_pressed"]
