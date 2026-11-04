@@ -81,7 +81,7 @@ offset_right = 428.0
 offset_bottom = -12.0
 grow_vertical = 0
 theme_override_font_sizes/font_size = 32
-text = "v0.2.1 (SAVEPOINT RELEASE)"
+text = "v0.3.0 (SAVEPOINT HOTFIX)"
 
 [connection signal="visibility_changed" from="OptionsMenu" to="Control" method="_on_options_menu_visibility_changed"]
 [connection signal="pressed" from="Control/VBoxContainer/StartButton" to="Control" method="_on_start_button_pressed"]
